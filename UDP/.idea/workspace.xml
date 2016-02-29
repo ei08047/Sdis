@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="75eee50a-421f-4710-a415-6709261c801c" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/one-liners.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/QuoteClient.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/QuoteServer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/QuoteServerThread.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="75eee50a-421f-4710-a415-6709261c801c" name="Default" comment="" />
     <ignored path="UDP.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -736,12 +730,12 @@
       <workItem from="1456356014146" duration="3623000" />
       <workItem from="1456416405803" duration="797000" />
       <workItem from="1456420454311" duration="17342000" />
-      <workItem from="1456749674482" duration="139000" />
+      <workItem from="1456749674482" duration="314000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27414000" />
+    <option name="totallyTimeSpent" value="27589000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="0" />
