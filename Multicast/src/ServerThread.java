@@ -30,8 +30,8 @@ public class ServerThread extends Thread {
     protected String srvc_addr;
     protected int srvc_port;
 
-    final static String mcast_addr = "224.0.0.3";
-    final static int mcast_port = 8888;
+    protected String mcast_addr;
+    protected int mcast_port;
     /*
     * <srvc_port> is the port number where the server provides the service
     * <mcast_addr> is the IP address of the multicast group used by the server to advertise its service.
@@ -42,6 +42,8 @@ public class ServerThread extends Thread {
     public ServerThread(String[] args) throws IOException {
 
         this.srvc_port = Integer.parseInt(args[0]);
+        mcast_addr = args[1];
+        mcast_port = Integer.parseInt(args[2]);
         socket = new DatagramSocket(srvc_port);
     }
 

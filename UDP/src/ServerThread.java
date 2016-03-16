@@ -11,9 +11,9 @@ import java.util.*;
 public class ServerThread extends Thread {
 
     protected DatagramSocket socket = null;
+    protected int port;
     protected BufferedReader in = null;
     protected boolean moreQuotes = true;
-    protected int port;
     protected String operation;
     protected String plate;
     protected String name;
