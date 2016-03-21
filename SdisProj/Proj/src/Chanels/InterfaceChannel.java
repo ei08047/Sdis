@@ -1,5 +1,9 @@
 package Chanels;
 
+
+import Peer.Peer;
+import messages.PutChunk;
+
 import java.io.IOException;
 import java.net.*;
 
@@ -27,6 +31,7 @@ public class InterfaceChannel extends Thread {
     }
 
     public void receive() {
+        System.out.println("listening on interface channel on port " + port);
         while (true) {
             try {
                 buf = new byte[maxSize];
@@ -34,13 +39,24 @@ public class InterfaceChannel extends Thread {
                 socket.receive(recv);
                 if(recv.getData() != null){
                     String received = new String(recv.getData(), 0, recv.getLength());
-                    System.out.println("Interface sent : " + received);
+                    operation = received;
+                    System.out.println("Interface sent : " + operation);
                     System.out.println("datagram size : " + recv.getLength());
+                    /*
+                    String version= "1.0";
+                    String senderID = "ze";
+                    String fileID = "zabrn";
+                    int chunkNo= 1;
+                    String body = "bla";
+                    int repDegree = 1;
+                    PutChunk p = new PutChunk(version,senderID,fileID,chunkNo,body,repDegree);
+                    */
+                    Peer.mc.send("zeeeeee");
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 

@@ -49,7 +49,6 @@ public class InterfaceApp {
                     buf = construct.getBytes();
                     InetAddress address = InetAddress.getLocalHost();
                     System.out.println("port/InitiationPeer: " + port );
-                    System.out.println("operation" + "  " + operation + " " + args[2] + " " + args[3]);
                     // get a datagram socket
                     DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
 
