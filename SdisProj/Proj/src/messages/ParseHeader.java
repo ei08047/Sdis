@@ -7,6 +7,7 @@ public class ParseHeader {
 
     public String[] parse(String header)
     {
+        header = header.replaceAll("[\n|\r]", "");
         String[] fields = null;
         fields = header.split(" ");
         return fields;
