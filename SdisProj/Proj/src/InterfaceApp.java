@@ -1,4 +1,4 @@
-import Chanels.InterfaceChannel;
+import chanels.InterfaceChannel;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

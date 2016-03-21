@@ -36,4 +36,8 @@ public abstract class Header {
    abstract public String getHeader();
 
 
+    public byte[] getBytes(){
+        return getHeader().getBytes();
+    }
+
 }

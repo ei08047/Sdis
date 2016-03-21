@@ -1,7 +1,7 @@
-package Peer;
+package peer;
 
-import Chanels.InterfaceChannel;
-import Chanels.MC;
+import chanels.*;
+import fileOperations.Baina;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -12,11 +12,13 @@ import java.util.regex.Pattern;
  */
 public class Peer {
     int id;
-    public static MC mc;
-    // mdb channel
-    // mdr channel
+    public static BackupChannel mdb;
+    public static ControlChannel mc;
+    public static RestoreChannel mdr;
+
     static String host_name;
     static int port_number;
+
     static InterfaceChannel interfaceChannel;
 
     public Peer(){
@@ -40,11 +42,17 @@ public class Peer {
                 if(matcher.matches()) {
                     port_number = Integer.parseInt(argumnents[1]);
 
+                    /*
                     interfaceChannel = new InterfaceChannel(port_number);
                     interfaceChannel.start();
-                    mc = new MC(8885, "224.0.0.3");
+                    mdr = new RestoreChannel("224.0.0.1", 8883);
+                    mdb = new BackupChannel("224.0.0.2", 8884);
+                    mc = new ControlChannel("224.0.0.3", 8885);
+                    mdr.start();
+                    mdb.start();
                     mc.start();
-                    //if receives an operation order, build corresponding message and send it in correspondent channel
+                    */
+                    Baina b = new Baina("test.pdf");
                 }else{
                     System.out.println("error: <port_number>");
                 }

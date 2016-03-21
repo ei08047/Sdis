@@ -1,7 +1,7 @@
-package Chanels;
+package chanels;
 
 
-import Peer.Peer;
+import peer.Peer;
 import messages.PutChunk;
 
 import java.io.IOException;
@@ -18,6 +18,8 @@ public class InterfaceChannel extends Thread {
     static int maxSize = 64000;
      //<IP address>:<port number>
     String operation;
+    String file;
+    int rep;
 
     public InterfaceChannel(int port_number) throws IOException {
         System.out.println("Creating interface connection");
@@ -39,9 +41,23 @@ public class InterfaceChannel extends Thread {
                 socket.receive(recv);
                 if(recv.getData() != null){
                     String received = new String(recv.getData(), 0, recv.getLength());
-                    operation = received;
-                    System.out.println("Interface sent : " + operation);
+                    System.out.println("Interface sent : " + received);
                     System.out.println("datagram size : " + recv.getLength());
+                    String[] parse = received.split(" ");
+                    operation = parse[0];
+                    file = parse[1];
+                    System.out.println("operation: " + operation);
+                    ///Just got the command order
+                        // if backup file rep
+                            //else restore file
+                            //delete
+                    if(operation.equals("backup")){
+                        rep = Integer.parseInt(parse[2]);
+                        System.out.println("operation backup started");
+                        //first operand must be a file
+                        //second must be an int
+                        // divide file in chunks
+                        // for each send a putchunk message
                     /*
                     String version= "1.0";
                     String senderID = "ze";
@@ -50,8 +66,16 @@ public class InterfaceChannel extends Thread {
                     String body = "bla";
                     int repDegree = 1;
                     PutChunk p = new PutChunk(version,senderID,fileID,chunkNo,body,repDegree);
+                    Peer.mc.send(p.getBytes());  // this should be sent via mdb channel
                     */
-                    Peer.mc.send("zeeeeee");
+                    }else
+                    if(operation.equals("restore")){
+                        //first operand must be a file
+                    }else
+                    if(operation.equals("delete")){
+                        //first operand must be a file
+
+                    }
 
                 }
             } catch (IOException e) {
