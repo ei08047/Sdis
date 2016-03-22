@@ -79,7 +79,7 @@ public class Peer {
 
                     interfaceChannel = new InterfaceChannel(id);
                     interfaceChannel.start();
-                    
+
 
                     mdr = new RestoreChannel(restore[0], restore_port);
                     mdb = new BackupChannel(backup[0], backup_port);
