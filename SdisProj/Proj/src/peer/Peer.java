@@ -24,8 +24,14 @@ public class Peer {
     public static ControlChannel mc;
     public static RestoreChannel mdr;
 
-    static String host_name;
-    static int port_number;
+    public static String control_addr;
+    public static String backup_addr;
+    public static String restore_addr;
+
+    public static int control_port;
+    public static int backup_port;
+    public static int restore_port;
+
 
     static InterfaceChannel interfaceChannel;
 
@@ -35,31 +41,47 @@ public class Peer {
 
 
     public static void main(String[] args) throws IOException {
-        if(args.length < 1 )
-            System.out.println("missing arguments : usage '<IP address>:<port number>' \n");
+        if(args.length < 4 )
+            System.out.println("missing arguments : usage '<ServerID> <control address>:<port number> <backup address>:<port number> <restore address>:<port number>' \n");
         else
         {
             retrieveDirectories();
-            String argumnents []=  args[0].split(":");
+
+            id = Integer.parseInt(args[0]);
+
+            String control []=  args[1].split(":");
+            String backup []=  args[2].split(":");
+            String restore []=  args[3].split(":");
+
             String patternHostName = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}";
             String patternPortNumber = "^[0-9]{4}$";
             Pattern pattern = Pattern.compile(patternHostName);
-            Matcher matcher = pattern.matcher(argumnents[0]);
-            if(matcher.matches()){
-                host_name = args[0];
+            Matcher matcher1 = pattern.matcher(control[0]);
+            Matcher matcher2 = pattern.matcher(backup[0]);
+            Matcher matcher3 = pattern.matcher(restore[0]);
+            if(matcher1.matches() && matcher2.matches() && matcher3.matches()){
+
+                control_addr = control[0];
+                backup_addr = backup[0];
+                restore_addr = restore[0];
+
                 pattern = Pattern.compile(patternPortNumber);
-                matcher = pattern.matcher(argumnents[1]);
+                matcher1 = pattern.matcher(control[1]);
+                matcher2 = pattern.matcher(backup[1]);
+                matcher3 = pattern.matcher(restore[1]);
 
-                if(matcher.matches()) {
-                    port_number = Integer.parseInt(argumnents[1]);
+                if(matcher1.matches() && matcher2.matches() && matcher3.matches()) {
 
+                    control_port = Integer.parseInt(control[1]);
+                    backup_port = Integer.parseInt(backup[1]);
+                    restore_port = Integer.parseInt(restore[1]);
 
-                    interfaceChannel = new InterfaceChannel(port_number);
+                    interfaceChannel = new InterfaceChannel(id);
                     interfaceChannel.start();
 
-                    mdr = new RestoreChannel("239.254.254.5", 8883);
-                    mdb = new BackupChannel("239.254.254.4", 8884);
-                    mc = new ControlChannel("239.254.254.3", 8885);
+                    mdr = new RestoreChannel(restore_addr, restore_port);
+                    mdb = new BackupChannel(backup_addr, backup_port);
+                    mc = new ControlChannel(control_addr, control_port);
                     mdr.start();
                     mdb.start();
                     mc.start();
