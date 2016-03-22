@@ -1,14 +1,22 @@
 package Protocols;
 
+import chanels.MC;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.net.MulticastSocket;
 
 /**
  * Created by ei08047 on 22-03-2016.
  */
 public class Putchunk extends Thread {
-    //needs mdb channel
-    //needs control channel
+    public MulticastSocket mdb,control;
+
+    public Putchunk(MulticastSocket backup , MulticastSocket ctrl ){
+        mdb = backup;
+        control = ctrl;
+    }
+
 
     public void run(){
         receive();
@@ -17,15 +25,16 @@ public class Putchunk extends Thread {
 
     //receives putchunk
     public void receive(){
-        /*
-        byte[] buf = new byte[MAX_SIZE];
+
+        byte[] buf = new byte[64000];
         DatagramPacket packet = new DatagramPacket(buf,buf.length);
         try {
-            System.out.println("listening backup channel on port: " + mc_port + ", address: " + mc_addr.getHostName());
-            mc_socket.receive(packet);
+            mdb.receive(packet);
+
             if(packet.getData() != null){
                 String msg = new String(packet.getData());
                 System.out.println("received: " + msg);
+                /*
                 String oper = "";
                 //needs parse
                 if(oper.equals("PUTCHUNK")){
@@ -38,14 +47,14 @@ public class Putchunk extends Thread {
                 else{
                     System.out.println("--Not a valid putchunk message");
                 }
+                */
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        */
+
     }
 
 
-    //sends stored
 }

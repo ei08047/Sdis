@@ -2,13 +2,19 @@ package Protocols;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.net.MulticastSocket;
 
 /**
  * Created by ei08047 on 22-03-2016.
  */
 public class Getchunk extends Thread {
-    //needs mdb channel
-    //needs control channel
+
+    public MulticastSocket mdr,control;
+
+    public Getchunk(MulticastSocket restore,MulticastSocket ctrl){
+        mdr = restore;
+        control = ctrl;
+    }
 
     public void run(){
         receive();

@@ -27,5 +27,17 @@ public  class MC {
         mc_socket.setTimeToLive(1);
         //mc_socket.setLoopbackMode(true);
     }
+
+    public MulticastSocket getMc_socket(){
+        return mc_socket;
+    }
+
+    public int getMc_port(){
+        return mc_port;
+    }
+
+    public String getMc_addr(){
+        return mc_addr.getHostAddress();
+    }
 }
 

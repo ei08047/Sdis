@@ -1,5 +1,7 @@
 package peer;
 
+import Protocols.Getchunk;
+import Protocols.Putchunk;
 import chanels.*;
 
 import java.io.*;
@@ -16,6 +18,8 @@ import java.util.regex.Pattern;
  * Created by ei08047 on 15-03-2016.
  */
 public class Peer2 {
+
+    //
     public static int id;
 
     public static String path = "data/";
@@ -30,6 +34,10 @@ public class Peer2 {
     public static int control_port;
     public static int backup_port;
     public static int restore_port;
+
+    public static Putchunk backup_listener;
+    public static Getchunk restore_listener;
+
 
 
     static InterfaceChannel interfaceChannel;
@@ -81,11 +89,13 @@ public class Peer2 {
                     mdb = new MC(backup_addr, backup_port);
                     mdr = new MC(restore_addr, restore_port);
 
-                    //cria putchunk thread
-                    // cria chunk
 
 
+                    backup_listener = new Putchunk(mdb.getMc_socket() , mc.getMc_socket());
+                    restore_listener = new Getchunk( mdr.getMc_socket() , mc.getMc_socket() );
 
+                    backup_listener.start();
+                    restore_listener.start();
                 } else {
                     System.out.println("error: <port_number>");
                 }
