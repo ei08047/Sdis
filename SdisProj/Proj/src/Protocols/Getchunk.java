@@ -1,25 +1,23 @@
-package chanels;
-
-/**
- * Created by ei08047 on 21-03-2016.
- */
-
-import messages.Stored;
+package Protocols;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 
 /**
- * Created by ei08047 on 15-03-2016.
+ * Created by ei08047 on 22-03-2016.
  */
-public class BackupChannel extends Channel{
+public class Getchunk extends Thread {
+    //needs mdb channel
+    //needs control channel
 
-    public BackupChannel(String addr, int port) throws IOException {
-        super(addr, port);
+    public void run(){
+        receive();
     }
 
-    //temos de acrescentar o que devolve
+
+    //receives getchunk
     public void receive(){
+        /*
         byte[] buf = new byte[MAX_SIZE];
         DatagramPacket packet = new DatagramPacket(buf,buf.length);
         try {
@@ -40,17 +38,14 @@ public class BackupChannel extends Channel{
                 else{
                     System.out.println("--Not a valid putchunk message");
                 }
-
-
-
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        */
     }
 
 
-    //needs method PUTCHUNK <Version> <SenderId> <FileId> <ChunkNo> <ReplicationDeg> <CRLF><CRLF><Body>
-
-
+    //sends chunks
 }

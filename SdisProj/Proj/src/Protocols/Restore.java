@@ -13,7 +13,7 @@ import java.net.UnknownHostException;
 /**
  * Created by ei08047 on 15-03-2016.
  */
-public class Backup extends Thread{
+public class Restore extends Thread{
 
     protected DatagramSocket socket = null;
     protected DatagramPacket recv;
@@ -32,17 +32,12 @@ public class Backup extends Thread{
 
     int peerId;
     String filename;
-    int repDegree;
-    //fileId
-    //repDegree
-    //numChunks
-    //putchunk
-    //receiveStored
 
-    public Backup(int id, String file, int replication ){
+
+    public Restore(int id, String file ){
         peerId = id;
         filename = file;
-        repDegree = replication;
+
     }
 
     public void  run(){
@@ -51,7 +46,7 @@ public class Backup extends Thread{
     }
 
 
-    //receives store
+    //receives chunk
     public void receive() {
         System.out.println("listening on control channel on port " + port);
         while (true) {
@@ -68,7 +63,7 @@ public class Backup extends Thread{
     }
 
 
-    //sends putchunk
+    //sends getchunk
 
 
 

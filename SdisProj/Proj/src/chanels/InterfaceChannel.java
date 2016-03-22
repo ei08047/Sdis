@@ -1,6 +1,8 @@
 package chanels;
 
 
+import Protocols.Backup;
+import Protocols.Restore;
 import peer.Peer;
 import messages.PutChunk;
 
@@ -43,47 +45,27 @@ public class InterfaceChannel extends Thread {
                 if(recv.getData() != null){
                     String received = new String(recv.getData(), 0, recv.getLength());
                     System.out.println("Interface sent : " + received);
-                    System.out.println("datagram size : " + recv.getLength());
                     String[] parse = received.split(" ");
-                    operation = parse[0];
-                    fileId = Peer.getFileId(parse[1]);
-                    filename = parse[1];
+                    fileId = Peer.getFileId(parse[0]);
+                    operation = parse[1];
                     System.out.println("operation: " + operation);
                     ///Just got the command order
                         // if backup file rep
                             //else restore file
                             //delete
                     if(operation.equals("backup")){
-                        rep = Integer.parseInt(parse[2]);
-                        System.out.println("operation backup started");
-                        //first operand must be a file
-                        Peer.split(filename);
-                        //second must be an int
-                        // divide file in chunks
-                        // for each send a putchunk message
-
-                        for (int i = 0; i < 105; i++) { ///hardcoded
-                            byte[] buf ;
-                            String version= "1.0";
-                            String senderID = String.valueOf(Peer.id);
-                            int chunkNo= i+1;
-                            String body = "bla";
-                            int repDegree = 1;
-                            PutChunk p = new PutChunk(version,senderID,fileId,chunkNo,body,repDegree);
-                            buf = p.getHeader().getBytes();
-
-                            InetAddress address = InetAddress.getLocalHost();
-                            DatagramPacket d = new DatagramPacket(buf,buf.length , Peer.backup_addr ,Peer.backup_port );
-                            Peer.mdb.send(d);
-                        }
-
+                        filename = parse[2];
+                        rep = Integer.parseInt(parse[3]);
+                        //first operand must be a file!
+                        //Backup backup = new Backup(int id, String file, int replication )
                     }else
                     if(operation.equals("restore")){
+                        //Restore()
                         //first operand must be a file
                     }else
                     if(operation.equals("delete")){
+                        //Delete()
                         //first operand must be a file
-
                     }
 
                 }
@@ -93,9 +75,4 @@ public class InterfaceChannel extends Thread {
         }
     }
 
-    public void send() throws IOException{
-        //recv = new DatagramPacket(msg.fullmsg.getBytes(), msg.fullmsg.getBytes().length, control_addr, control_port);
-        socket.send(recv);
-        // System.out.println(msg.fullmsg);
-    }
 }
