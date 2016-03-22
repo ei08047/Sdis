@@ -1,32 +1,36 @@
 package fileOperations;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 /**
  * Created by ei08047 on 21-03-2016.
  */
 public class Baina {
-    String filename;
-    long size;
-    long chunk_max_size = 64000;
-    byte[] fileId;
+    String path="data/";
+    String[] directories;
 
-    public Baina(String file){
-        fileId = new byte[32];
-        File f = new File("data/" + file );
-        size = f.length();
-        int noChunks = (int) (size / chunk_max_size);
-        System.out.println("noChunks: " + noChunks);
-        filename = file;
+    public void retrieveDirectories(){
+        File file = new File(path);
+        directories = file.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File current, String name) {
+                return new File(current, name).isDirectory();
+            }
+        });
+
+        System.out.println(Arrays.toString(directories));
+    }
 
 
+    public String getFileId(String file){
+        File f = new File( path + file );
         String test = file + f.lastModified() ;
         MessageDigest digest = null;
         String result;
@@ -45,37 +49,51 @@ public class Baina {
         } catch(Exception ex){
             throw new RuntimeException(ex);
         }
+        return result;
+    } // given the filename.extension returns the fileId String
 
-        new File("data/" + result).mkdir(); // create Dir
 
-        System.out.println("result: " + result);
-        if(result.equals("3c13748756fc439b10c7a00ad1799f87860b030147ee8a2a6b8808f7edb0c320")){
-            System.out.println("works");
-        }else
-        {
-            System.out.println("fuck!");
+    public void split(String filename) throws FileNotFoundException {
+        int partCounter = 1;
+        int sizeOfFiles = 64000;
+        byte[] buffer = new byte[sizeOfFiles];
+        String fileId = getFileId(filename);
+        new File("data/" + fileId).mkdir(); // create Dir
+        File f = new File(path + filename);
+
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(f));
+        int tmp = 0;
+        try {
+            while ((tmp = bis.read(buffer)) > 0) {
+                //write each chunk of data into separate file with different number in name
+                File newFile = new File("data/" + fileId,
+                        String.format("%03d", partCounter++));
+                try (FileOutputStream out = new FileOutputStream(newFile)) {
+                    out.write(buffer, 0, tmp);//tmp is chunk size
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        ///test save chunk
-        String ze = "zeee";
-        saveChunk(result,0, ze.getBytes());
     }
 
 
-    public void saveChunk(String fileId, int chunkNo, byte[] body){
+   public void saveChunk(String fileId, int chunkNo, byte[] body){
         File z = new File("data/"+fileId);
         if(!z.exists()){
             new File("data/" + fileId).mkdir(); // create Dir
         }
 
         byte data[] = body;
-        Path file = Paths.get("data/" + fileId + chunkNo);
+        Path file = Paths.get("data/" + fileId + "/" + chunkNo);
         try {
             Files.write(file, data);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
     /*
     <FileId>
     This is the file identifier for the backup service.
@@ -91,7 +109,7 @@ public class Baina {
     //generate id
     //file size
 
-
-
-
 }
+
+
+
