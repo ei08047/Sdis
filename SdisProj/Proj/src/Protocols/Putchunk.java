@@ -19,6 +19,7 @@ public class Putchunk extends Thread {
 
 
     public void run(){
+        System.out.println("Im here! send me a putchunk!");
         receive();
     }
 
