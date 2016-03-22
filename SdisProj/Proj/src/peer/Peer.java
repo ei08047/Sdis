@@ -38,7 +38,7 @@ public class Peer {
     public Peer(){
     }
 
-
+//8888 239.254.254.3:8887 239.254.254.4:8886 239.254.254.5:8885
 
     public static void main(String[] args) throws IOException {
         if(args.length < 4 )
