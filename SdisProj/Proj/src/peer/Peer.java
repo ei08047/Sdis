@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  * Created by ei08047 on 15-03-2016.
  */
 public class Peer {
-    int id;
+    public static int id;
 
     public static String path = "data/";
     public static String[] directories;
@@ -86,6 +86,7 @@ public class Peer {
 
         System.out.println(Arrays.toString(directories));
     }
+
 
 
     public static String getFileId(String file){

@@ -19,6 +19,7 @@ public class InterfaceChannel extends Thread {
      //<IP address>:<port number>
     String operation;
     String fileId;
+    String filename;
     int rep;
 
     public InterfaceChannel(int port_number) throws IOException {
@@ -46,6 +47,7 @@ public class InterfaceChannel extends Thread {
                     String[] parse = received.split(" ");
                     operation = parse[0];
                     fileId = Peer.getFileId(parse[1]);
+                    filename = parse[1];
                     System.out.println("operation: " + operation);
                     ///Just got the command order
                         // if backup file rep
@@ -55,18 +57,26 @@ public class InterfaceChannel extends Thread {
                         rep = Integer.parseInt(parse[2]);
                         System.out.println("operation backup started");
                         //first operand must be a file
+                        Peer.split(filename);
                         //second must be an int
                         // divide file in chunks
                         // for each send a putchunk message
-                    /*
-                    String version= "1.0";
-                    String senderID = "ze";
-                    int chunkNo= 1;
-                    String body = "bla";
-                    int repDegree = 1;
-                    PutChunk p = new PutChunk(version,Peer.id,fileId,chunkNo,body,repDegree);
-                    Peer.mc.send(p.getBytes());  // this should be sent via mdb channel
-                    */
+
+                        for (int i = 0; i < 105; i++) {
+                            byte[] buf ;
+                            String version= "1.0";
+                            String senderID = String.valueOf(Peer.id);
+                            int chunkNo= i+1;
+                            String body = "bla";
+                            int repDegree = 1;
+                            PutChunk p = new PutChunk(version,senderID,fileId,chunkNo,body,repDegree);
+                            buf = p.getHeader().getBytes();
+
+                            InetAddress address = InetAddress.getLocalHost();
+                            DatagramPacket d = new DatagramPacket(buf,buf.length ,  address , 8886 );
+                            Peer.mdb.send(d);
+                        }
+
                     }else
                     if(operation.equals("restore")){
                         //first operand must be a file
