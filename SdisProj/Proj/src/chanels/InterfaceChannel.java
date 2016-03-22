@@ -18,7 +18,7 @@ public class InterfaceChannel extends Thread {
     static int maxSize = 64000;
      //<IP address>:<port number>
     String operation;
-    String file;
+    String fileId;
     int rep;
 
     public InterfaceChannel(int port_number) throws IOException {
@@ -45,7 +45,7 @@ public class InterfaceChannel extends Thread {
                     System.out.println("datagram size : " + recv.getLength());
                     String[] parse = received.split(" ");
                     operation = parse[0];
-                    file = parse[1];
+                    fileId = Peer.getFileId(parse[1]);
                     System.out.println("operation: " + operation);
                     ///Just got the command order
                         // if backup file rep
@@ -61,11 +61,10 @@ public class InterfaceChannel extends Thread {
                     /*
                     String version= "1.0";
                     String senderID = "ze";
-                    String fileID = "zabrn";
                     int chunkNo= 1;
                     String body = "bla";
                     int repDegree = 1;
-                    PutChunk p = new PutChunk(version,senderID,fileID,chunkNo,body,repDegree);
+                    PutChunk p = new PutChunk(version,Peer.id,fileId,chunkNo,body,repDegree);
                     Peer.mc.send(p.getBytes());  // this should be sent via mdb channel
                     */
                     }else

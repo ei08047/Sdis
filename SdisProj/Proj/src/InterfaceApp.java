@@ -63,8 +63,6 @@ public class InterfaceApp {
                    // System.out.println("Server responds: " + received);
 
                     //socket.close();
-
-
                     }else{
                         System.out.println("error: <oper>");
                     }

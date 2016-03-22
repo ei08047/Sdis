@@ -26,13 +26,15 @@ public class ControlChannel extends Channel{
                 System.out.println("received: " + msg);
                 //needs parse
                //STORED DELETE REMOVED GETCHUNK
-                String oper = "";
+                String[] splitted = msg.split(" ");
+                String oper = splitted[0];
 
                     if (oper.equals("STORED")){
                    // check if rep degree is the requested for that chunk
+                        System.out.println("--received a stored");
                 }
                 else if(oper.equals("DELETE")){
-                // After receive delete all chunks of the specified file
+                // After receive, delete all chunks of the specified file
                 //no response
                 }
                 else if(oper.equals("REMOVED")){

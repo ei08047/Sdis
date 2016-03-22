@@ -1,7 +1,6 @@
 package peer;
 
 import chanels.*;
-import fileOperations.Baina;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -54,19 +53,18 @@ public class Peer {
                 if(matcher.matches()) {
                     port_number = Integer.parseInt(argumnents[1]);
 
-                    /*
+
                     interfaceChannel = new InterfaceChannel(port_number);
                     interfaceChannel.start();
-                    mdr = new RestoreChannel("224.0.0.1", 8883);
-                    mdb = new BackupChannel("224.0.0.2", 8884);
-                    mc = new ControlChannel("224.0.0.3", 8885);
+
+                    mdr = new RestoreChannel("239.254.254.5", 8883);
+                    mdb = new BackupChannel("239.254.254.4", 8884);
+                    mc = new ControlChannel("239.254.254.3", 8885);
                     mdr.start();
                     mdb.start();
                     mc.start();
-                    */
-                    //Baina b = new Baina("test.pdf");
-                    Baina b = new Baina();
-                    b.split("test.pdf");
+
+
                 }else{
                     System.out.println("error: <port_number>");
                 }
@@ -90,7 +88,7 @@ public class Peer {
     }
 
 
-    public String getFileId(String file){
+    public static String getFileId(String file){
         File f = new File( path + file );
         String test = file + f.lastModified() ;
         MessageDigest digest = null;
@@ -114,7 +112,7 @@ public class Peer {
     } // given the filename.extension returns the fileId String
 
 
-    public void split(String filename) throws FileNotFoundException {
+    public static void split(String filename) throws FileNotFoundException {
         int partCounter = 1;
         int sizeOfFiles = 64000;
         byte[] buffer = new byte[sizeOfFiles];
@@ -138,7 +136,7 @@ public class Peer {
         }
     }
 
-    public boolean checkIfDirExists(String fileId){
+    public static boolean checkIfDirExists(String fileId){
         boolean ret = false;
         for (int i = 0; i < directories.length ; i++) {
             if(fileId.equals(directories[i]))
@@ -148,7 +146,7 @@ public class Peer {
     }
 
 
-    public void saveChunk(String fileId, int chunkNo, byte[] body){
+    public static void saveChunk(String fileId, int chunkNo, byte[] body){
         File z = new File("data/"+fileId);
         if(!z.exists()){
             new File("data/" + fileId).mkdir(); // create Dir
