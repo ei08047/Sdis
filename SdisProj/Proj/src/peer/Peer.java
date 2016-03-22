@@ -3,6 +3,7 @@ package peer;
 import chanels.*;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,9 +25,9 @@ public class Peer {
     public static ControlChannel mc;
     public static RestoreChannel mdr;
 
-    public static String control_addr;
-    public static String backup_addr;
-    public static String restore_addr;
+    public static InetAddress control_addr;
+    public static InetAddress backup_addr;
+    public static InetAddress restore_addr;
 
     public static int control_port;
     public static int backup_port;
@@ -61,9 +62,9 @@ public class Peer {
             Matcher matcher3 = pattern.matcher(restore[0]);
             if(matcher1.matches() && matcher2.matches() && matcher3.matches()){
 
-                control_addr = control[0];
-                backup_addr = backup[0];
-                restore_addr = restore[0];
+                control_addr = InetAddress.getByName(control[0]);
+                backup_addr = InetAddress.getByName(backup[0]);
+                restore_addr = InetAddress.getByName( restore[0]);
 
                 pattern = Pattern.compile(patternPortNumber);
                 matcher1 = pattern.matcher(control[1]);
@@ -78,10 +79,11 @@ public class Peer {
 
                     interfaceChannel = new InterfaceChannel(id);
                     interfaceChannel.start();
+                    
 
-                    mdr = new RestoreChannel(restore_addr, restore_port);
-                    mdb = new BackupChannel(backup_addr, backup_port);
-                    mc = new ControlChannel(control_addr, control_port);
+                    mdr = new RestoreChannel(restore[0], restore_port);
+                    mdb = new BackupChannel(backup[0], backup_port);
+                    mc = new ControlChannel(control[0], control_port);
                     mdr.start();
                     mdb.start();
                     mc.start();

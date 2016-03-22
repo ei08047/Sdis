@@ -62,7 +62,7 @@ public class InterfaceChannel extends Thread {
                         // divide file in chunks
                         // for each send a putchunk message
 
-                        for (int i = 0; i < 105; i++) {
+                        for (int i = 0; i < 105; i++) { ///hardcoded
                             byte[] buf ;
                             String version= "1.0";
                             String senderID = String.valueOf(Peer.id);
@@ -73,7 +73,7 @@ public class InterfaceChannel extends Thread {
                             buf = p.getHeader().getBytes();
 
                             InetAddress address = InetAddress.getLocalHost();
-                            DatagramPacket d = new DatagramPacket(buf,buf.length ,  address , 8886 );
+                            DatagramPacket d = new DatagramPacket(buf,buf.length , Peer.backup_addr ,Peer.backup_port );
                             Peer.mdb.send(d);
                         }
 
