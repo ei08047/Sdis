@@ -40,18 +40,33 @@ public class InterfaceApp {
                 pattern = Pattern.compile(patternOperation);
                 matcher = pattern.matcher(args[1]);
 
-                if(matcher.matches()){
+                if(matcher.matches()){ ///operation
                     operation = args[1];
-                    ///operation
-                    byte[] buf ;
-                    construct = operation + " " + args[2] + " " + args[3];
-                    buf = construct.getBytes();
-                    InetAddress address = InetAddress.getLocalHost();
                     System.out.println("port/InitiationPeer: " + port );
-                    // get a datagram socket
-                    DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
-                    // send request
-                    socket.send(packet);
+                    if(operation.equals("backup")){
+                        byte[] buf ;
+                        construct = operation + " " + args[2] + " " + args[3];
+                        buf = construct.getBytes();
+                        InetAddress address = InetAddress.getLocalHost();
+
+                        // get a datagram socket
+                        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
+                        // send request
+                        socket.send(packet);
+                    }
+                    else if(operation.equals("restore")){
+
+                        byte[] buf ;
+                        construct = operation + " " + args[2];
+                        buf = construct.getBytes();
+                        InetAddress address = InetAddress.getLocalHost();
+
+                        // get a datagram socket
+                        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
+                        // send request
+                        socket.send(packet);
+                    }
+
                     //socket.close();
                     }else{
                         System.out.println("error: <oper>");

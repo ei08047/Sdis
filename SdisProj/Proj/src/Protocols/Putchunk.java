@@ -37,20 +37,11 @@ public class Putchunk extends Thread {
                 System.out.println("received: " + msg);
                 // IMP: A peer must never store the chunks of its own files.
                 //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
-                /*
-                String oper = "";
-                //needs parse
-                if(oper.equals("PUTCHUNK")){
-                    //case putchunk
-                    //send a stored through control channel
-                    System.out.println("Do i have this chunk?");
-                    System.out.println("I should print a stored here");
-                    //Stored( );
-                }
-                else{
-                    System.out.println("--Not a valid putchunk message");
-                }
-                */
+                //sends stored
+                System.out.println("wait and send store");
+                //create datagram
+                //control.send();
+
             }
         } catch (IOException e) {
             e.printStackTrace();

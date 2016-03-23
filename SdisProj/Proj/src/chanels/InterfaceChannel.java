@@ -56,7 +56,12 @@ public class InterfaceChannel extends Thread {
                     if(operation.equals("backup")){
                         filename = parse[2];
                         rep = Integer.parseInt(parse[3]);
-                        //first operand must be a file!
+
+                        //first operand must be path to a file!
+                        //if file exists
+                        //get fileId
+                        //split
+                        //one Backup for each Chunk
                         //Backup backup = new Backup(int id, String file, int replication )
                     }else
                     if(operation.equals("restore")){

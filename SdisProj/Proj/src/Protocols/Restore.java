@@ -41,7 +41,7 @@ public class Restore extends Thread{
 
     public void  run(){
         System.out.println("operation restore started");
-        //sends getchunk 
+        //sends getchunk
         receive(); //for some time
     }
 

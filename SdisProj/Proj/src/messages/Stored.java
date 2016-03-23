@@ -15,7 +15,6 @@ public class Stored extends GetChunk {
 
     @Override
     public String getHeader() {
-        // ws = " ";
         return type + ws + version + ws + senderID + ws + fileID + ws + chunkNo + ws + CRLF + CRLF;
     }
 
@@ -39,11 +38,6 @@ public class Stored extends GetChunk {
         {
             System.out.println("i: " +  fields[i]);
         }
-
-
-
-
-
-
+        
     }
 }
