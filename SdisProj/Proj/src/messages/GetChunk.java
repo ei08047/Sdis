@@ -15,7 +15,6 @@ public class GetChunk extends Header {
 
     @Override
     public String getHeader() {
-        // ws = " "
         return type + ws + version + ws + senderID + ws + fileID + ws + chunkNo + ws + CRLF + CRLF;
     }
 }

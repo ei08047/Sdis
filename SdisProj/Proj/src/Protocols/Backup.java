@@ -4,26 +4,23 @@ import chanels.MC;
 import messages.PutChunk;
 import peer.Peer;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.security.MessageDigest;
+import java.util.List;
 
 /**
  * Created by ei08047 on 15-03-2016.
  */
 public class Backup extends Thread{
 
-    protected DatagramSocket socket = null;
+    //sends putchunks on mdb
+    //waits for store on ctrl
+
+    public MulticastSocket control,mdb;
     protected DatagramPacket recv;
-    protected int port;
 
-
-    public MC control;
-    //needs interface channel
-    //waits for backup message
-    //waits for store s
     byte[] buf;
     static int maxSize = 64000;
 
@@ -33,33 +30,45 @@ public class Backup extends Thread{
     int peerId;
     String filename;
     int repDegree;
-    //fileId
-    //repDegree
-    //numChunks
-    //putchunk
-    //receiveStored
+    int[] peers;
+    int numTries;
 
-    public Backup(int id, String file, int replication ){
+
+
+    public Backup(int id, String file, int replication, MulticastSocket ctrl, MulticastSocket backup ){
         peerId = id;
         filename = file;
         repDegree = replication;
+        control = ctrl;
+        mdb = backup;
+
+        fileId = getFileId(filename);
     }
 
     public void  run(){
         System.out.println("operation backup started");
-        receive();
+        while(peers.length < repDegree && numTries < 5){
+            //putchunks on mdb
+            //try to
+            receive();
+            numTries++;
+        }
     }
 
 
     //receives store
     public void receive() {
-        System.out.println("listening on control channel on port " + port);
+        //STORED <Version> <SenderId> <FileId> <ChunkNo> <CRLF><CRLF>
+        //replace true with timer
         while (true) {
             try {
                 buf = new byte[maxSize];
                 recv = new DatagramPacket(buf, buf.length);
-                socket.receive(recv);
+                control.receive(recv);
                 if (recv.getData() != null) {
+                    //type must be stored
+                    // add senderId to peers array
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -69,7 +78,40 @@ public class Backup extends Thread{
 
 
     //sends putchunk
+    public void send(){
+        /*
+        * This message is used to ensure that the chunk is backed up with the desired replication degree as follows.
+         * The initiator-peer collects the confirmation messages during a time interval of one second.
+         * If the number of confirmation messages it received up to the end of that interval is lower
+         * than the desired replication degree, it retransmits the backup message on the MDB channel,
+         * and doubles the time interval for receiving confirmation messages.
+          * This procedure is repeated up to a maximum number of five times,
+          * i.e.the initiator will send at most 5 PUTCHUNK messages per chunk.
+        * */
+    }
 
+    // given the filename.extension returns the fileId String
+    public static String getFileId(String file){
+        File f = new File( "data/" + file );
+        String test = file + f.lastModified() ;
+        MessageDigest digest = null;
+        String result;
+        try{
+            digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(test.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
 
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            result = hexString.toString();
+        } catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+        return result;
+    }
 
 }

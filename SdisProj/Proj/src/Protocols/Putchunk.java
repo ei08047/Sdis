@@ -35,6 +35,8 @@ public class Putchunk extends Thread {
             if(packet.getData() != null){
                 String msg = new String(packet.getData());
                 System.out.println("received: " + msg);
+                // IMP: A peer must never store the chunks of its own files.
+                //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
                 /*
                 String oper = "";
                 //needs parse

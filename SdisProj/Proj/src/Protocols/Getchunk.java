@@ -9,6 +9,9 @@ import java.net.MulticastSocket;
  */
 public class Getchunk extends Thread {
 
+    //receive getchunk on mc
+    //sends chunks on mdr
+
     public MulticastSocket mdr,control;
 
     public Getchunk(MulticastSocket restore,MulticastSocket ctrl){
@@ -24,15 +27,19 @@ public class Getchunk extends Thread {
 
     //receives getchunk
     public void receive(){
-
+//To avoid flooding the host with CHUNK messages,
+// each peer shall wait for a random time uniformly distributed between 0 and 400 ms, before sending the CHUNK message.
+// If it receives a CHUNK message before that time expires, it will not send the CHUNK message.
         byte[] buf = new byte[64000];
         DatagramPacket packet = new DatagramPacket(buf,buf.length);
         try {
-            //System.out.println("listening backup channel on port: " + mc_port + ", address: " + mc_addr.getHostName());
             control.receive(packet);
             if(packet.getData() != null){
                 String msg = new String(packet.getData());
                 System.out.println("received: " + msg);
+                //prepare chunk / wait
+                //send chunk
+
             }
         } catch (IOException e) {
             e.printStackTrace();

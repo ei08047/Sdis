@@ -29,7 +29,7 @@ public class InterfaceApp {
             return;
         }else{
             String patternPortNumber = "^[0-9]{4}$";
-            String patternOperation = "^backup$|^restore$";
+            String patternOperation = "^backup$|^restore$|^deletion$";
 
             Pattern pattern = Pattern.compile(patternPortNumber);
             Matcher matcher = pattern.matcher(args[0]);
@@ -42,7 +42,6 @@ public class InterfaceApp {
 
                 if(matcher.matches()){
                     operation = args[1];
-
                     ///operation
                     byte[] buf ;
                     construct = operation + " " + args[2] + " " + args[3];
@@ -51,17 +50,8 @@ public class InterfaceApp {
                     System.out.println("port/InitiationPeer: " + port );
                     // get a datagram socket
                     DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
-
-                    System.out.println("datagram size : " + packet.getLength());
                     // send request
                     socket.send(packet);
-
-                   // interfaceChannel = new InterfaceChannel(port);
-                    //interfaceChannel.run();
-                    // display response
-                    //String received = new String(packet.getData(), 0, packet.getLength());
-                   // System.out.println("Server responds: " + received);
-
                     //socket.close();
                     }else{
                         System.out.println("error: <oper>");
