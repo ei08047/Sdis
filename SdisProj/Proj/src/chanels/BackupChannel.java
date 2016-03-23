@@ -4,8 +4,6 @@ package chanels;
  * Created by ei08047 on 21-03-2016.
  */
 
-import messages.Stored;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 
@@ -35,7 +33,7 @@ public class BackupChannel extends Channel{
                     //send a stored through control channel
                     System.out.println("Do i have this chunk?");
                     System.out.println("I should print a stored here");
-                    //Stored( );
+                    //StoredMsg( );
                 }
                 else{
                     System.out.println("--Not a valid putchunk message");

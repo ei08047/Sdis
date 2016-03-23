@@ -3,12 +3,12 @@ package messages;
 /**
  * Created by zabrn on 19/03/2016.
  */
-public class PutChunk extends Chunk {
+public class PutChunkMsg extends Chunk {
 
     private int replicationDeg;
 
 
-    public PutChunk(String version, String senderID, String fileId, int chunkNo, String body, int replicationDeg) {
+    public PutChunkMsg(String version, String senderID, String fileId, int chunkNo, String body, int replicationDeg) {
         super(version, senderID, fileId, chunkNo, body);
         this.type = "PUTCHUNK";
         this.replicationDeg = replicationDeg;

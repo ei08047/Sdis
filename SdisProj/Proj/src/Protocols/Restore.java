@@ -1,9 +1,5 @@
 package Protocols;
 
-import chanels.MC;
-import messages.PutChunk;
-import peer.Peer;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.*;
@@ -41,6 +37,8 @@ public class Restore extends Thread{
 
     public void  run(){
         System.out.println("operation restore started");
+        //get file metadata
+
         //sends getchunk
         receive(); //for some time
     }

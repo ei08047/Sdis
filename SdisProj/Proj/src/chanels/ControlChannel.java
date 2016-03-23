@@ -1,6 +1,6 @@
 package chanels;
 
-import messages.Stored;
+import messages.StoredMsg;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -52,7 +52,7 @@ public class ControlChannel extends Channel{
 
     //STORED <Version> <SenderId> <FileId> <ChunkNo> <CRLF><CRLF>
     public DatagramPacket stored(String version, String senderId, String fileId, int chunkNo ){
-        Stored msg = new Stored(version, senderId, fileId , chunkNo );
+        StoredMsg msg = new StoredMsg(version, senderId, fileId , chunkNo );
         return  new DatagramPacket(msg.getBytes(), msg.getBytes().length, mc_addr , mc_port);
     }
 

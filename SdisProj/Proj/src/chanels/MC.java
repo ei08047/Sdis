@@ -25,7 +25,7 @@ public  class MC {
         mc_socket = new MulticastSocket(mc_port);
         mc_socket.joinGroup(mc_addr);
         mc_socket.setTimeToLive(1);
-        //mc_socket.setLoopbackMode(true);
+        mc_socket.setLoopbackMode(true);
     }
 
     public MulticastSocket getMc_socket(){

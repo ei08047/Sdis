@@ -1,14 +1,11 @@
 package Protocols;
 
-import chanels.MC;
-import messages.PutChunk;
-import peer.Peer;
+import messages.PutChunkMsg;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.*;
 import java.security.MessageDigest;
-import java.util.List;
 
 /**
  * Created by ei08047 on 15-03-2016.
@@ -20,6 +17,7 @@ public class Backup extends Thread{
 
     public MulticastSocket control,mdb;
     protected DatagramPacket recv;
+    protected DatagramPacket send_put_chunk;
 
     byte[] buf;
     static int maxSize = 64000;
@@ -49,6 +47,15 @@ public class Backup extends Thread{
         System.out.println("operation backup started");
         while(peers.length < repDegree && numTries < 5){
             //putchunks on mdb
+            PutChunkMsg p = new PutChunkMsg("version", "sender", "file", 1, "body" , 1);
+            byte[] buf ;
+            buf = p.getBytes();
+            send_put_chunk = new DatagramPacket(buf , buf.length );
+            try {
+                mdb.send(send_put_chunk);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             //try to
             receive();
             numTries++;

@@ -1,10 +1,7 @@
 package chanels;
 
 
-import Protocols.Backup;
-import Protocols.Restore;
 import peer.Peer;
-import messages.PutChunk;
 
 import java.io.IOException;
 import java.net.*;
@@ -46,20 +43,19 @@ public class InterfaceChannel extends Thread {
                     String received = new String(recv.getData(), 0, recv.getLength());
                     System.out.println("Interface sent : " + received);
                     String[] parse = received.split(" ");
-                    fileId = Peer.getFileId(parse[0]);
-                    operation = parse[1];
+                    operation = parse[0];
                     System.out.println("operation: " + operation);
                     ///Just got the command order
                         // if backup file rep
                             //else restore file
                             //delete
                     if(operation.equals("backup")){
-                        filename = parse[2];
-                        rep = Integer.parseInt(parse[3]);
 
-                        //first operand must be path to a file!
+
+                        filename = parse[1]; //first operand must be path to a file!
                         //if file exists
-                        //get fileId
+                        fileId = Peer.getFileId(parse[1]); //get fileId
+                        rep = Integer.parseInt(parse[2]);
                         //split
                         //one Backup for each Chunk
                         //Backup backup = new Backup(int id, String file, int replication )

@@ -1,6 +1,7 @@
 package Protocols;
 
 import chanels.MC;
+import messages.StoredMsg;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -11,6 +12,8 @@ import java.net.MulticastSocket;
  */
 public class Putchunk extends Thread {
     public MulticastSocket mdb,control;
+    DatagramPacket packet_putChunk = null;
+    DatagramPacket packet_store = null;
 
     public Putchunk(MulticastSocket backup , MulticastSocket ctrl ){
         mdb = backup;
@@ -28,19 +31,22 @@ public class Putchunk extends Thread {
     public void receive(){
 
         byte[] buf = new byte[64000];
-        DatagramPacket packet = new DatagramPacket(buf,buf.length);
+        packet_putChunk = new DatagramPacket(buf,buf.length);
         try {
-            mdb.receive(packet);
+            mdb.receive(packet_putChunk);
 
-            if(packet.getData() != null){
-                String msg = new String(packet.getData());
+            if(packet_putChunk.getData() != null){
+                String msg = new String(packet_putChunk.getData());
                 System.out.println("received: " + msg);
                 // IMP: A peer must never store the chunks of its own files.
                 //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
                 //sends stored
-                System.out.println("wait and send store");
+                System.out.println("wait and send store"); // 0 to 400 ms
                 //create datagram
-                //control.send();
+                StoredMsg storedMsg = new StoredMsg("version","sender","file", 1);
+                buf = storedMsg.getBytes();
+                packet_store = new DatagramPacket(buf , buf.length );
+                control.send(packet_store);
 
             }
         } catch (IOException e) {
