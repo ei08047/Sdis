@@ -1,5 +1,6 @@
 package Protocols;
 
+import chanels.MC;
 import messages.PutChunkMsg;
 
 import java.io.File;
@@ -15,9 +16,8 @@ public class Backup extends Thread{
     //sends putchunks on mdb
     //waits for store on ctrl
 
-    public MulticastSocket control,mdb;
-    protected DatagramPacket recv;
-    protected DatagramPacket send_put_chunk;
+    public MC control,mdb;
+    protected DatagramPacket send_put_chunk = null;
 
     byte[] buf;
     static int maxSize = 64000;
@@ -28,41 +28,42 @@ public class Backup extends Thread{
     int peerId;
     String filename;
     int repDegree;
-    int[] peers;
-    int numTries;
+    int[] peers = null;
+    int numTries = 0;
 
 
 
-    public Backup(int id, String file, int replication, MulticastSocket ctrl, MulticastSocket backup ){
+    public Backup(int id, String file, int replication, MC ctrl, MC backup ){
         peerId = id;
         filename = file;
         repDegree = replication;
         control = ctrl;
         mdb = backup;
-
         fileId = getFileId(filename);
     }
 
     public void  run(){
         System.out.println("operation backup started");
-        while(peers.length < repDegree && numTries < 5){
+      //  while(peers.length < repDegree && numTries < 5){
             //putchunks on mdb
             PutChunkMsg p = new PutChunkMsg("version", "sender", "file", 1, "body" , 1);
-            byte[] buf ;
-            buf = p.getBytes();
-            send_put_chunk = new DatagramPacket(buf , buf.length );
+            byte[] buf = new byte[64000] ;
+           // buf = p.getBytes();
+            buf = "zeeeeeee".getBytes();
+            send_put_chunk = new DatagramPacket(buf , buf.length ,mdb.getMc_addr() , mdb.getMc_port() );
             try {
-                mdb.send(send_put_chunk);
+               mdb.getMc_socket().send(send_put_chunk);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             //try to
-            receive();
-            numTries++;
-        }
+            //receive();
+            //numTries++;
+      //  }
     }
 
 
+    /*
     //receives store
     public void receive() {
         //STORED <Version> <SenderId> <FileId> <ChunkNo> <CRLF><CRLF>
@@ -82,7 +83,7 @@ public class Backup extends Thread{
             }
         }
     }
-
+*/
 
     //sends putchunk
     public void send(){

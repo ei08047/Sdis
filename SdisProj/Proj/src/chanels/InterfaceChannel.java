@@ -1,6 +1,7 @@
 package chanels;
 
 
+import Protocols.Backup;
 import peer.Peer;
 
 import java.io.IOException;
@@ -44,21 +45,20 @@ public class InterfaceChannel extends Thread {
                     System.out.println("Interface sent : " + received);
                     String[] parse = received.split(" ");
                     operation = parse[0];
-                    System.out.println("operation: " + operation);
                     ///Just got the command order
                         // if backup file rep
                             //else restore file
                             //delete
                     if(operation.equals("backup")){
-
-
+                        System.out.println("operation: " + operation);
                         filename = parse[1]; //first operand must be path to a file!
                         //if file exists
-                        fileId = Peer.getFileId(parse[1]); //get fileId
+                        //fileId = Peer.getFileId(parse[1]); //get fileId
                         rep = Integer.parseInt(parse[2]);
                         //split
                         //one Backup for each Chunk
-                        //Backup backup = new Backup(int id, String file, int replication )
+                        Backup backup = new Backup(Peer.id, "file", 1 , Peer.mc, Peer.mdb );
+                        backup.start();
                     }else
                     if(operation.equals("restore")){
                         //Restore()

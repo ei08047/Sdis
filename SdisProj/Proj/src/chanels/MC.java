@@ -18,14 +18,18 @@ public  class MC {
     protected MulticastSocket mc_socket;
     protected InetAddress mc_addr;
     protected int mc_port;
+    protected String type;
 
-    public MC(String addr, int port) throws IOException {
+    public MC(String addr, int port, String type) throws IOException {
+        this.type = type;
         mc_addr = InetAddress.getByName(addr);
         mc_port = port;
         mc_socket = new MulticastSocket(mc_port);
         mc_socket.joinGroup(mc_addr);
         mc_socket.setTimeToLive(1);
         mc_socket.setLoopbackMode(true);
+
+        System.out.println("channel :" + type + "    on addr: " + mc_addr.getHostName() + "  port:" + mc_port);
     }
 
     public MulticastSocket getMc_socket(){
@@ -36,8 +40,8 @@ public  class MC {
         return mc_port;
     }
 
-    public String getMc_addr(){
-        return mc_addr.getHostAddress();
+    public InetAddress getMc_addr(){
+        return mc_addr;
     }
 }
 
