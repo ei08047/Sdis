@@ -53,12 +53,14 @@ public class Backup extends Thread{
             send_put_chunk = new DatagramPacket(buf , buf.length ,mdb.getMc_addr() , mdb.getMc_port() );
             try {
                mdb.getMc_socket().send(send_put_chunk);
+                //try to
+                //receive();
+                numTries++;
+                System.out.println("num Tries: " + numTries);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //try to
-            receive();
-            numTries++;
+
         }
     }
 
@@ -68,6 +70,7 @@ public class Backup extends Thread{
     public void receive() {
         //STORED <Version> <SenderId> <FileId> <ChunkNo> <CRLF><CRLF>
         //replace true with timer
+        System.out.println("vamos a isso");
         while (true) {
             try {
                 buf = new byte[maxSize];
@@ -76,7 +79,7 @@ public class Backup extends Thread{
                 if (rec_stored.getData() != null) {
                     //type must be stored
                     // add senderId to peers array
-                    System.out.println("vamos a isso");
+
 
                 }
             } catch (IOException e) {

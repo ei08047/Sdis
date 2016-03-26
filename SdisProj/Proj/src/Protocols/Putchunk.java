@@ -30,27 +30,31 @@ public class Putchunk extends Thread {
     //receives putchunk
     public void receive(){
 
-        byte[] buf = new byte[64000];
-        packet_putChunk = new DatagramPacket(buf,buf.length);
-        try {
-            mdb.getMc_socket().receive(packet_putChunk);
+        while (true) {
 
-            if(packet_putChunk.getData() != null){
-                String msg = new String(packet_putChunk.getData());
-                System.out.println("received: " + msg);
-                // IMP: A peer must never store the chunks of its own files.
-                //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
-                //sends stored
-                System.out.println("wait and send store"); // 0 to 400 ms
-                //create datagram
-                StoredMsg storedMsg = new StoredMsg("version","sender","file", 1);
-                buf = storedMsg.getBytes();
-                packet_store = new DatagramPacket(buf , buf.length , control.getMc_addr(),control.getMc_port() );
-                control.getMc_socket().send(packet_store);
+            byte[] buf = new byte[64000];
+            packet_putChunk = new DatagramPacket(buf, buf.length);
+            try {
+                mdb.getMc_socket().receive(packet_putChunk);
 
+                if (packet_putChunk.getData() != null) {
+                    String msg = new String(packet_putChunk.getData());
+                    System.out.println("received: " + msg);
+                    // IMP: A peer must never store the chunks of its own files.
+                    //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
+                    //sends stored
+                    System.out.println("wait and send store"); // 0 to 400 ms
+                    //create datagram
+                    StoredMsg storedMsg = new StoredMsg("version", "sender", "file", 1);
+                    buf = storedMsg.getBytes();
+                    packet_store = new DatagramPacket(buf, buf.length, control.getMc_addr(), control.getMc_port());
+                    control.getMc_socket().send(packet_store);
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
         }
 
 

@@ -29,7 +29,7 @@ public  class MC {
         mc_socket.setTimeToLive(1);
         mc_socket.setLoopbackMode(true);
 
-        System.out.println("channel :" + type + "    on addr: " + mc_addr.getHostName() + "  port:" + mc_port);
+        //System.out.println("channel :" + type + "    on addr: " + mc_addr.getHostName() + "  port:" + mc_port);
     }
 
     public MulticastSocket getMc_socket(){
