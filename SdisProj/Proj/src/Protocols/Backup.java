@@ -18,6 +18,7 @@ public class Backup extends Thread{
 
     public MC control,mdb;
     protected DatagramPacket send_put_chunk = null;
+    protected DatagramPacket rec_stored = null;
 
     byte[] buf;
     static int maxSize = 64000;
@@ -44,12 +45,11 @@ public class Backup extends Thread{
 
     public void  run(){
         System.out.println("operation backup started");
-      //  while(peers.length < repDegree && numTries < 5){
+        while( numTries < 5){ //peers.length < repDegree &&
             //putchunks on mdb
             PutChunkMsg p = new PutChunkMsg("version", "sender", "file", 1, "body" , 1);
             byte[] buf = new byte[64000] ;
-           // buf = p.getBytes();
-            buf = "zeeeeeee".getBytes();
+            buf = p.getBytes();
             send_put_chunk = new DatagramPacket(buf , buf.length ,mdb.getMc_addr() , mdb.getMc_port() );
             try {
                mdb.getMc_socket().send(send_put_chunk);
@@ -57,13 +57,13 @@ public class Backup extends Thread{
                 e.printStackTrace();
             }
             //try to
-            //receive();
-            //numTries++;
-      //  }
+            receive();
+            numTries++;
+        }
     }
 
 
-    /*
+
     //receives store
     public void receive() {
         //STORED <Version> <SenderId> <FileId> <ChunkNo> <CRLF><CRLF>
@@ -71,11 +71,12 @@ public class Backup extends Thread{
         while (true) {
             try {
                 buf = new byte[maxSize];
-                recv = new DatagramPacket(buf, buf.length);
-                control.receive(recv);
-                if (recv.getData() != null) {
+                rec_stored = new DatagramPacket(buf, buf.length);
+                control.getMc_socket().receive(rec_stored);
+                if (rec_stored.getData() != null) {
                     //type must be stored
                     // add senderId to peers array
+                    System.out.println("vamos a isso");
 
                 }
             } catch (IOException e) {
@@ -83,7 +84,7 @@ public class Backup extends Thread{
             }
         }
     }
-*/
+
 
     //sends putchunk
     public void send(){

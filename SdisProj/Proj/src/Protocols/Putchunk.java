@@ -11,11 +11,11 @@ import java.net.MulticastSocket;
  * Created by ei08047 on 22-03-2016.
  */
 public class Putchunk extends Thread {
-    public MulticastSocket mdb,control;
+    public MC mdb,control;
     DatagramPacket packet_putChunk = null;
     DatagramPacket packet_store = null;
 
-    public Putchunk(MulticastSocket backup , MulticastSocket ctrl ){
+    public Putchunk(MC backup , MC ctrl ){
         mdb = backup;
         control = ctrl;
     }
@@ -33,7 +33,7 @@ public class Putchunk extends Thread {
         byte[] buf = new byte[64000];
         packet_putChunk = new DatagramPacket(buf,buf.length);
         try {
-            mdb.receive(packet_putChunk);
+            mdb.getMc_socket().receive(packet_putChunk);
 
             if(packet_putChunk.getData() != null){
                 String msg = new String(packet_putChunk.getData());
@@ -45,8 +45,8 @@ public class Putchunk extends Thread {
                 //create datagram
                 StoredMsg storedMsg = new StoredMsg("version","sender","file", 1);
                 buf = storedMsg.getBytes();
-                packet_store = new DatagramPacket(buf , buf.length );
-                control.send(packet_store);
+                packet_store = new DatagramPacket(buf , buf.length , control.getMc_addr(),control.getMc_port() );
+                control.getMc_socket().send(packet_store);
 
             }
         } catch (IOException e) {

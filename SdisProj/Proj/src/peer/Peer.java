@@ -90,7 +90,7 @@ public class Peer {
                     interfaceChannel = new InterfaceChannel(id);
                     interfaceChannel.start();
 
-                    backup_listener = new Putchunk(mdb.getMc_socket() , mc.getMc_socket());
+                    backup_listener = new Putchunk(mdb , mc);
                     restore_listener = new Getchunk( mdr.getMc_socket() , mc.getMc_socket() );
 
                     backup_listener.start();
