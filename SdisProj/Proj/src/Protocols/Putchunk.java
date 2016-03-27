@@ -39,9 +39,10 @@ public class Putchunk extends Thread {
 
                 if (packet_putChunk.getData() != null) {
                     String msg = new String(packet_putChunk.getData());
-                    System.out.println("received: " + msg);
+                    System.out.println("received222: " + msg);
                     // IMP: A peer must never store the chunks of its own files.
                     //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
+                    //save chunk to disk
                     //sends stored
                     System.out.println("wait and send store"); // 0 to 400 ms
                     //create datagram

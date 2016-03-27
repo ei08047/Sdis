@@ -91,10 +91,10 @@ public class Peer {
                     interfaceChannel.start();
 
                     backup_listener = new Putchunk(mdb , mc);
-                    restore_listener = new Getchunk( mdr.getMc_socket() , mc.getMc_socket() );
+                    //restore_listener = new Getchunk( mdr.getMc_socket() , mc.getMc_socket() );
 
                     backup_listener.start();
-                    restore_listener.start();
+                    //restore_listener.start();
 
                 } else {
                     System.out.println("error: <port_number>");

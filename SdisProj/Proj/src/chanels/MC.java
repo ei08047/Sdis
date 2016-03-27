@@ -1,9 +1,7 @@
 package chanels;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
+import java.net.*;
 
 
 import java.io.IOException;
@@ -20,14 +18,35 @@ public  class MC {
     protected int mc_port;
     protected String type;
 
-    public MC(String addr, int port, String type) throws IOException {
+    public MC(String addr, int port, String type) {
         this.type = type;
-        mc_addr = InetAddress.getByName(addr);
+
+        try {
+            mc_addr = InetAddress.getByName(addr);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         mc_port = port;
-        mc_socket = new MulticastSocket(mc_port);
-        mc_socket.joinGroup(mc_addr);
-        mc_socket.setTimeToLive(1);
-        mc_socket.setLoopbackMode(true);
+        try {
+            mc_socket = new MulticastSocket(mc_port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            mc_socket.joinGroup(mc_addr);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            mc_socket.setTimeToLive(1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            mc_socket.setLoopbackMode(true);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
 
         //System.out.println("channel :" + type + "    on addr: " + mc_addr.getHostName() + "  port:" + mc_port);
     }

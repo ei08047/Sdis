@@ -36,7 +36,7 @@ public class Getchunk extends Thread {
             control.receive(packet);
             if(packet.getData() != null){
                 String msg = new String(packet.getData());
-                System.out.println("received: " + msg);
+                System.out.println("received3: " + msg);
                 //prepare chunk / wait
                 //send chunk
 

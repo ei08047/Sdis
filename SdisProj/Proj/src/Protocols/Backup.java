@@ -29,7 +29,8 @@ public class Backup extends Thread{
     int peerId;
     String filename;
     int repDegree;
-    int[] peers = null;
+    int currentReplication =0;
+    String[] peers;
     int numTries = 0;
 
 
@@ -38,6 +39,7 @@ public class Backup extends Thread{
         peerId = id;
         filename = file;
         repDegree = replication;
+        peers = new String[repDegree];
         control = ctrl;
         mdb = backup;
         fileId = getFileId(filename);
@@ -45,22 +47,22 @@ public class Backup extends Thread{
 
     public void  run(){
         System.out.println("operation backup started");
-        while( numTries < 5){ //peers.length < repDegree &&
+        while( numTries < 5 || currentReplication < repDegree ){ //peers.length < repDegree &&
             //putchunks on mdb
             PutChunkMsg p = new PutChunkMsg("version", "sender", "file", 1, "body" , 1);
             byte[] buf = new byte[64000] ;
             buf = p.getBytes();
             send_put_chunk = new DatagramPacket(buf , buf.length ,mdb.getMc_addr() , mdb.getMc_port() );
             try {
-               mdb.getMc_socket().send(send_put_chunk);
-                //try to
-                //receive();
                 numTries++;
                 System.out.println("num Tries: " + numTries);
+               mdb.getMc_socket().send(send_put_chunk);
+                //try to
+                receive();
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println(e.getMessage());
             }
-
         }
     }
 
@@ -70,7 +72,6 @@ public class Backup extends Thread{
     public void receive() {
         //STORED <Version> <SenderId> <FileId> <ChunkNo> <CRLF><CRLF>
         //replace true with timer
-        System.out.println("vamos a isso");
         while (true) {
             try {
                 buf = new byte[maxSize];
@@ -79,11 +80,12 @@ public class Backup extends Thread{
                 if (rec_stored.getData() != null) {
                     //type must be stored
                     // add senderId to peers array
-
-
+                    peers[currentReplication] = rec_stored.getAddress().getHostAddress();
+                    currentReplication ++ ;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
     }
