@@ -99,18 +99,15 @@ public class Backup extends Thread{
                 control.getMc_socket().receive(rec_stored);
                 if (rec_stored.getData() != null) {
                     String msg = new String(rec_stored.getData());
-                    System.out.println("control received:  " + msg);
+                    //System.out.println("control received:  " + msg);
                     String[] parsed = p.parse(msg);
                     if(parsed[0].equals("STORED")){
                         //type must be stored
                         if(Integer.parseInt(parsed[4]) == chunkNo /*&& parsed[3].equals(fileId)*/ ){
                             // check if sender is already in sender array
-                            for (int i = 0; i < peers.length; i++) {
-                                if( !peers[i].equals(parsed[2])){  //if not
-                                    // add senderId to peers array
-                                    peers[currentReplication] = parsed[2];
-                                    currentReplication ++ ;
-                                }
+                            if( !checkSender(parsed[2])){
+                                peers[currentReplication] = parsed[2];
+                                currentReplication ++ ;
                             }
                         }
                     }
@@ -124,6 +121,16 @@ public class Backup extends Thread{
         }
     }
 
+
+
+    public boolean checkSender(String sender){
+        boolean exists = false;
+        for (int i = 0; i < peers.length ; i++) {
+            if(peers[i].equals(sender))
+                exists = true;
+        }
+        return exists;
+    }
 
     // given the filename.extension returns the fileId String
     public static String getFileId(String file){

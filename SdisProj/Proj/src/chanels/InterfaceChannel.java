@@ -50,7 +50,6 @@ public class InterfaceChannel extends Thread {
                         System.out.println("operation: " + operation);
                         filename = parse[1]; //first operand must be path to a file!
                         //if file exists
-                        //fileId = Peer.getFileId(parse[1]); //get fileId
                         rep = Integer.parseInt(parse[2]);
                         //split
                         File willBeRead = new File ("./data/" +  Peer.id + "/" + filename);
@@ -80,6 +79,7 @@ public class InterfaceChannel extends Thread {
                                 NUMBER_OF_CHUNKS ++;
                             }
                         }
+                        System.out.println("finished splitting file!!");
                     }else   //else restore file
                     if(operation.equals("restore")){
                         //Restore()
@@ -89,7 +89,6 @@ public class InterfaceChannel extends Thread {
                         //Delete()
                         //first operand must be a file
                     }
-
                 }
             } catch (IOException e) {
                 e.printStackTrace();
