@@ -53,7 +53,7 @@ public class Putchunk extends Thread {
                     //    2 - find / create directory with name = fileId
                     //       3 - find / create file named chunkNo
                     //          4 - sends stored
-
+                    System.out.println("wait and send store"); // 0 to 400 ms
                     StoredMsg storedMsg = new StoredMsg(Peer.version, Peer.id, parsed[3], 1);
                     buf = storedMsg.getBytes();
                     packet_store = new DatagramPacket(buf, buf.length, control.getMc_addr(), control.getMc_port());
@@ -64,12 +64,14 @@ public class Putchunk extends Thread {
                         if (f.exists() && f.isDirectory()) {
                             File c = new File (path + "/" + parsed[4]);
                             if(c.exists()){
-                                System.out.println("wait and send store"); // 0 to 400 ms
+                                System.out.println(parsed[4] + " already exists!!");
                                 //create datagram
                                 control.getMc_socket().send(packet_store);
                             }else{
+                                c.getParentFile().mkdirs();
+                                c.createNewFile();
                                 //save to disk
-                                System.out.println("save to disk"); // 0 to 400 ms
+                                System.out.println("save to disk");
                                 control.getMc_socket().send(packet_store);
                             }
                         }else

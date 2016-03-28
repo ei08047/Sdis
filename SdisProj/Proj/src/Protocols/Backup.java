@@ -99,16 +99,19 @@ public class Backup extends Thread{
                 control.getMc_socket().receive(rec_stored);
                 if (rec_stored.getData() != null) {
                     String msg = new String(rec_stored.getData());
+                    System.out.println("control received:  " + msg);
                     String[] parsed = p.parse(msg);
-
-                    for (int i = 0; i < parsed.length; i++) {
-                        System.out.println("i: " + i + "  " + parsed[i] );
-                    }
-                    if(parsed[0].equals("STORED")){ //type must be stored
+                    if(parsed[0].equals("STORED")){
+                        //type must be stored
                         if(Integer.parseInt(parsed[4]) == chunkNo /*&& parsed[3].equals(fileId)*/ ){
-                            // add senderId to peers array
-                            peers[currentReplication] = parsed[2];
-                            currentReplication ++ ;
+                            // check if sender is already in sender array
+                            for (int i = 0; i < peers.length; i++) {
+                                if( !peers[i].equals(parsed[2])){  //if not
+                                    // add senderId to peers array
+                                    peers[currentReplication] = parsed[2];
+                                    currentReplication ++ ;
+                                }
+                            }
                         }
                     }
 
