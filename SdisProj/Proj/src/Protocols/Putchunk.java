@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.MulticastSocket;
+import java.util.Random;
 
 /**
  * Created by ei08047 on 22-03-2016.
@@ -32,7 +33,7 @@ public class Putchunk extends Thread {
 
     //receives putchunk
     public void receive(){
-
+        Random rand = new Random();
         while (true) {
 
             byte[] buf = new byte[64000];
@@ -45,6 +46,14 @@ public class Putchunk extends Thread {
                     System.out.println("received222: " + msg);
                     ParseHeader p = new ParseHeader();
                     String[] parsed = p.parse(msg);
+                    int sleepTime = rand.nextInt(400) + 1;
+                    try {
+                        System.out.println("wait and send store"); // 0 to 400 ms
+                        sleep(sleepTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
 
                     // IMP: A peer must never store the chunks of its own files.
                     //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
@@ -53,7 +62,6 @@ public class Putchunk extends Thread {
                     //    2 - find / create directory with name = fileId
                     //       3 - find / create file named chunkNo
                     //          4 - sends stored
-                    System.out.println("wait and send store"); // 0 to 400 ms
                     StoredMsg storedMsg = new StoredMsg(Peer.version, Peer.id, parsed[3], 1);
                     buf = storedMsg.getBytes();
                     packet_store = new DatagramPacket(buf, buf.length, control.getMc_addr(), control.getMc_port());

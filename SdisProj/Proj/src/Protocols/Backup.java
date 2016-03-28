@@ -66,50 +66,51 @@ public class Backup extends Thread{
             byte[] buf = new byte[64000] ;
             buf = p.getBytes();
             send_put_chunk = new DatagramPacket(buf , buf.length ,mdb.getMc_addr() , mdb.getMc_port() );
+
             try {
                 numTries++;
                 //System.out.println("num Tries: " + numTries + "  on chunk No :" + chunkNo + "   with current rep:" + currentReplication);
                 mdb.getMc_socket().send(send_put_chunk);
-                //try to
-                receive();
+                control.getMc_socket().setSoTimeout(wattingTime);
+                while(true){
+                    receive();
+                }
+            } catch (SocketTimeoutException e) {
+                System.out.println("try:" + numTries + " on chunk no:" + chunkNo);
                 wattingTime = wattingTime * 2;
-
+            } catch (SocketException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println(e.getMessage());
             }
         }
     }
 
     //receives store
-    public void receive() {
+    public void receive() throws IOException {
         //STORED <Version> <SenderId> <FileId> <ChunkNo> <CRLF><CRLF>
         ParseHeader p = new ParseHeader();
-        while (true) {
-            try {
-                buf = new byte[maxSize];
-                rec_stored = new DatagramPacket(buf, buf.length);
-                control.getMc_socket().receive(rec_stored);
-                if (rec_stored.getData() != null) {
-                    String msg = new String(rec_stored.getData());
-                    //System.out.println("control received:  " + msg);
-                    String[] parsed = p.parse(msg);
-                    if(parsed[0].equals("STORED")){
-                        //type must be stored
-                        if(Integer.parseInt(parsed[4]) == chunkNo /*&& parsed[3].equals(fileId)*/ ){
-                            // check if sender is already in sender array
-                            if( !checkSender(parsed[2])){
-                                peers[currentReplication] = parsed[2];
-                                currentReplication ++ ;
-                            }
-                        }
+
+        buf = new byte[maxSize];
+        rec_stored = new DatagramPacket(buf, buf.length);
+        control.getMc_socket().receive(rec_stored);
+        if (rec_stored.getData() != null) {
+            String msg = new String(rec_stored.getData());
+            //System.out.println("control received:  " + msg);
+            String[] parsed = p.parse(msg);
+            if(parsed[0].equals("STORED")){
+                //type must be stored
+                if(Integer.parseInt(parsed[4]) == chunkNo /*&& parsed[3].equals(fileId)*/ ){
+                    // check if sender is already in sender array
+                    if( !checkSender(parsed[2])){
+                        peers[currentReplication] = parsed[2];
+                        currentReplication ++ ;
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println(e.getMessage());
             }
         }
+
+
     }
 
 
