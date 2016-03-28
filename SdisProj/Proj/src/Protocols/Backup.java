@@ -79,7 +79,7 @@ public class Backup extends Thread{
                     }
                 }, wattingTime);
 
-                wattingTime *= 2;
+                wattingTime = wattingTime * 2;
 
             } catch (IOException e) {
                 e.printStackTrace();

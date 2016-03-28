@@ -1,6 +1,7 @@
 package Protocols;
 
 import chanels.MC;
+import messages.ParseHeader;
 import messages.StoredMsg;
 
 import java.io.IOException;
@@ -40,6 +41,12 @@ public class Putchunk extends Thread {
                 if (packet_putChunk.getData() != null) {
                     String msg = new String(packet_putChunk.getData());
                     System.out.println("received222: " + msg);
+                    ParseHeader p = new ParseHeader();
+                    String[] parsed = p.parse(msg);
+                    for (int i = 0; i < parsed.length; i++) {
+                        System.out.println("i: " + i + "  " + parsed[i]);
+                    }
+
                     //type must be putchunk
                     // IMP: A peer must never store the chunks of its own files.
                     //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
