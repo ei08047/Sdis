@@ -69,7 +69,7 @@ public class Backup extends Thread{
             send_put_chunk = new DatagramPacket(buf , buf.length ,mdb.getMc_addr() , mdb.getMc_port() );
             try {
                 numTries++;
-                System.out.println("num Tries: " + numTries + "  on chunk No :" + chunkNo + "   with current rep:" + currentReplication);
+                //System.out.println("num Tries: " + numTries + "  on chunk No :" + chunkNo + "   with current rep:" + currentReplication);
                mdb.getMc_socket().send(send_put_chunk);
                 //try to
                 timer.schedule(new TimerTask() {

@@ -69,8 +69,13 @@ public class Putchunk extends Thread {
                                 control.getMc_socket().send(packet_store);
                             }else{
                                 //save to disk
+                                System.out.println("save to disk"); // 0 to 400 ms
                                 control.getMc_socket().send(packet_store);
                             }
+                        }else
+                        {
+                            f.mkdir();
+                            System.out.println("just made folder named fileid");
                         }
                     }
 

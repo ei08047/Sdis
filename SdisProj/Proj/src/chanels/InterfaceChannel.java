@@ -55,7 +55,6 @@ public class InterfaceChannel extends Thread {
                         //split
                         File willBeRead = new File ("./data/" +  Peer.id + "/" + filename);
                         int FILE_SIZE = (int) willBeRead.length();
-                        System.out.println("Total File Size: "+FILE_SIZE);
 
                         int NUMBER_OF_CHUNKS = 0;
                         byte[] temporary = null;
@@ -69,7 +68,6 @@ public class InterfaceChannel extends Thread {
                             int bytesRemaining = FILE_SIZE - totalBytesRead;
                             if(bytesRemaining < maxSize){
                                 maxSize = bytesRemaining;
-                                System.out.println("CHUNK_SIZE: "+maxSize);
                             }
                             temporary = new byte[maxSize];
                             int bytesRead = inStream.read(temporary, 0, maxSize);
