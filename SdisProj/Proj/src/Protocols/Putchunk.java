@@ -62,7 +62,7 @@ public class Putchunk extends Thread {
                     //    2 - find / create directory with name = fileId
                     //       3 - find / create file named chunkNo
                     //          4 - sends stored
-                    StoredMsg storedMsg = new StoredMsg(Peer.version, Peer.id, parsed[3], 1);
+                    StoredMsg storedMsg = new StoredMsg(Peer.version, Peer.id, parsed[3], Integer.parseInt(parsed[4]));
                     buf = storedMsg.getBytes();
                     packet_store = new DatagramPacket(buf, buf.length, control.getMc_addr(), control.getMc_port());
 

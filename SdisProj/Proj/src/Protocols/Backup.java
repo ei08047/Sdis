@@ -51,6 +51,7 @@ public class Backup extends Thread{
     }
 
     public void  run(){
+        wattingTime = 1000;
                 /*
         * This message is used to ensure that the chunk is backed up with the desired replication degree as follows.
          * The initiator-peer collects the confirmation messages during a time interval of one second.
@@ -60,7 +61,7 @@ public class Backup extends Thread{
           * This procedure is repeated up to a maximum number of five times,
           * i.e.the initiator will send at most 5 PUTCHUNK messages per chunk.
         * */
-        while( numTries < 5 && currentReplication < repDegree ){ //peers.length < repDegree &&
+        while( numTries < 5 || currentReplication < repDegree ){ //peers.length < repDegree &&
             //putchunks on mdb  PUTCHUNK <Version> <SenderId> <FileId> <ChunkNo> <ReplicationDeg> <CRLF><CRLF><Body>
             PutChunkMsg p = new PutChunkMsg(Peer.version, Peer.id, fileId, chunkNo, "body" + chunkNo , 1);
             byte[] buf = new byte[64000] ;
@@ -69,7 +70,7 @@ public class Backup extends Thread{
 
             try {
                 numTries++;
-                //System.out.println("num Tries: " + numTries + "  on chunk No :" + chunkNo + "   with current rep:" + currentReplication);
+                System.out.println("num Tries: " + numTries + "  on chunk No :" + chunkNo + "   with current rep:" + currentReplication);
                 mdb.getMc_socket().send(send_put_chunk);
                 control.getMc_socket().setSoTimeout(wattingTime);
                 while(true){
@@ -100,9 +101,12 @@ public class Backup extends Thread{
             String[] parsed = p.parse(msg);
             if(parsed[0].equals("STORED")){
                 //type must be stored
+                System.out.println("received typer stored");
                 if(Integer.parseInt(parsed[4]) == chunkNo /*&& parsed[3].equals(fileId)*/ ){
                     // check if sender is already in sender array
+                    System.out.println(" for chunk: " + chunkNo);
                     if( !checkSender(parsed[2])){
+                        System.out.println(" from peer " + parsed[2]);
                         peers[currentReplication] = parsed[2];
                         currentReplication ++ ;
                     }
