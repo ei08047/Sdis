@@ -5,7 +5,7 @@ package messages;
  */
 public class Removed extends GetChunk {
 
-    public Removed(String version, String senderID, String fileId, int chunkNo) {
+    public Removed(String version, int senderID, String fileId, int chunkNo) {
         super(version, senderID, fileId, chunkNo);
         this.type = "REMOVED";
     }

@@ -22,6 +22,7 @@ public class Peer {
 
     //
     public static int id;
+    public static String version = "1.0";
 
     public static String path = "./data/";
     public static String[] directories;

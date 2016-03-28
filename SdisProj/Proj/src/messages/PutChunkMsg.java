@@ -8,7 +8,7 @@ public class PutChunkMsg extends Chunk {
     private int replicationDeg;
 
 
-    public PutChunkMsg(String version, String senderID, String fileId, int chunkNo, String body, int replicationDeg) {
+    public PutChunkMsg(String version, int senderID, String fileId, int chunkNo, String body, int replicationDeg) {
         super(version, senderID, fileId, chunkNo, body);
         this.type = "PUTCHUNK";
         this.replicationDeg = replicationDeg;

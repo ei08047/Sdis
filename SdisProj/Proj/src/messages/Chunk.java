@@ -7,7 +7,7 @@ public class Chunk extends GetChunk {
 
     protected String body;
 
-    public Chunk(String version, String senderID, String fileId, int chunkNo, String body) {
+    public Chunk(String version, int senderID, String fileId, int chunkNo, String body) {
         super(version, senderID, fileId, chunkNo);
         this.type = "CHUNK";
         this.body = body;

@@ -7,7 +7,7 @@ public class GetChunk extends Header {
 
     protected int chunkNo;
 
-    public GetChunk(String version, String senderID, String fileId, int chunkNo) {
+    public GetChunk(String version, int senderID, String fileId, int chunkNo) {
         super(version, senderID, fileId);
         this.type = "GETCHUNK";
         this.chunkNo = chunkNo;

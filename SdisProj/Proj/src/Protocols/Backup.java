@@ -3,6 +3,7 @@ package Protocols;
 import chanels.MC;
 import messages.ParseHeader;
 import messages.PutChunkMsg;
+import peer.Peer;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,7 +63,7 @@ public class Backup extends Thread{
         * */
         while( numTries < 5 && currentReplication < repDegree ){ //peers.length < repDegree &&
             //putchunks on mdb  PUTCHUNK <Version> <SenderId> <FileId> <ChunkNo> <ReplicationDeg> <CRLF><CRLF><Body>
-            PutChunkMsg p = new PutChunkMsg("version", "sender", "file", chunkNo, "body" + chunkNo , 1);
+            PutChunkMsg p = new PutChunkMsg(Peer.version, Peer.id, fileId, chunkNo, "body" + chunkNo , 1);
             byte[] buf = new byte[64000] ;
             buf = p.getBytes();
             send_put_chunk = new DatagramPacket(buf , buf.length ,mdb.getMc_addr() , mdb.getMc_port() );

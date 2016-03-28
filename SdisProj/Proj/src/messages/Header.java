@@ -22,12 +22,12 @@ public abstract class Header {
 
     protected String type;
     protected String version;
-    protected String senderID;
+    protected int senderID;
     protected String fileID;
     protected String CRLF  = "\n\r";
     protected String ws = " ";
 
-    public Header(String version, String senderID, String fileID) {
+    public Header(String version, int senderID, String fileID) {
         this.version = version;
         this.senderID = senderID;
         this.fileID = fileID;
