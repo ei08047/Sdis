@@ -40,10 +40,14 @@ public class Putchunk extends Thread {
                 if (packet_putChunk.getData() != null) {
                     String msg = new String(packet_putChunk.getData());
                     System.out.println("received222: " + msg);
+                    //type must be putchunk
                     // IMP: A peer must never store the chunks of its own files.
                     //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
-                    //save chunk to disk
-                    //sends stored
+                    // 1 - find peer directory
+                    // 1.1 - See if this peer has file in question
+                    //    2 - find / create directory with name = fileId
+                    //       3 - find / create file named chunkNo
+                    //          4 - sends stored
                     System.out.println("wait and send store"); // 0 to 400 ms
                     //create datagram
                     StoredMsg storedMsg = new StoredMsg("version", "sender", "file", 1);

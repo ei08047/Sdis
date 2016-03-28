@@ -23,7 +23,7 @@ public class Peer {
     //
     public static int id;
 
-    public static String path = "data/";
+    public static String path = "./data/";
     public static String[] directories;
 
     public static MC mc,mdb,mdr;
@@ -49,6 +49,7 @@ public class Peer {
 //8888 239.254.254.3:8887 239.254.254.4:8886 239.254.254.5:8885
 
     public static void main(String[] args) throws IOException {
+
         if (args.length < 4)
             System.out.println("missing arguments : usage '<ServerID> <control address>:<port number> <backup address>:<port number> <restore address>:<port number>' \n");
         else {
@@ -77,6 +78,15 @@ public class Peer {
                 matcher3 = pattern.matcher(restore[1]);
 
                 if (matcher1.matches() && matcher2.matches() && matcher3.matches()) {
+
+                    try{
+                        //create dir data if it doesnt exist
+                        new File(path + id).mkdirs();
+                    }catch (SecurityException e ){
+                        System.out.println(e.getMessage());
+                    }
+
+                    // create peer dir if doesnt exist
 
                     control_port = Integer.parseInt(control[1]);
                     backup_port = Integer.parseInt(backup[1]);

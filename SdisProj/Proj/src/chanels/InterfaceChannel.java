@@ -4,7 +4,7 @@ package chanels;
 import Protocols.Backup;
 import peer.Peer;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.*;
 
 /**
@@ -46,24 +46,47 @@ public class InterfaceChannel extends Thread {
                     String[] parse = received.split(" ");
                     operation = parse[0];
                     ///Just got the command order
-                        // if backup file rep
-                            //else restore file
-                            //delete
-                    if(operation.equals("backup")){
+                    if(operation.equals("backup")){       // if backup file rep
                         System.out.println("operation: " + operation);
                         filename = parse[1]; //first operand must be path to a file!
                         //if file exists
                         //fileId = Peer.getFileId(parse[1]); //get fileId
                         rep = Integer.parseInt(parse[2]);
                         //split
-                        //one Backup for each Chunk
-                        Backup backup = new Backup(Peer.id, "file", 1 , Peer.mc, Peer.mdb );
-                        backup.start();
-                    }else
+                        File willBeRead = new File ("./data/" +  Peer.id + "/" + filename);
+                        int FILE_SIZE = (int) willBeRead.length();
+                        System.out.println("Total File Size: "+FILE_SIZE);
+
+                        int NUMBER_OF_CHUNKS = 0;
+                        byte[] temporary = null;
+
+                        InputStream inStream = null;
+                        int totalBytesRead = 0;
+
+                        inStream = new BufferedInputStream( (new FileInputStream(willBeRead) ) );
+
+                        while(totalBytesRead < FILE_SIZE){
+                            int bytesRemaining = FILE_SIZE - totalBytesRead;
+                            if(bytesRemaining < maxSize){
+                                maxSize = bytesRemaining;
+                                System.out.println("CHUNK_SIZE: "+maxSize);
+                            }
+                            temporary = new byte[maxSize];
+                            int bytesRead = inStream.read(temporary, 0, maxSize);
+                            if(bytesRead > 0){
+                                //body in temporary
+                                //one Backup for each Chunk
+                                Backup backup = new Backup(Peer.id, "file", rep ,"body" ,NUMBER_OF_CHUNKS , Peer.mc, Peer.mdb );
+                                backup.start();
+                                totalBytesRead += bytesRead;
+                                NUMBER_OF_CHUNKS ++;
+                            }
+                        }
+                    }else   //else restore file
                     if(operation.equals("restore")){
                         //Restore()
                         //first operand must be a file
-                    }else
+                    }else      //delete
                     if(operation.equals("delete")){
                         //Delete()
                         //first operand must be a file
