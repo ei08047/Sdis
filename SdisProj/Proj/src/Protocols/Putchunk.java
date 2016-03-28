@@ -45,9 +45,6 @@ public class Putchunk extends Thread {
                     System.out.println("received222: " + msg);
                     ParseHeader p = new ParseHeader();
                     String[] parsed = p.parse(msg);
-                    for (int i = 0; i < parsed.length; i++) {
-                        System.out.println("i: " + i + "  " + parsed[i]);
-                    }
 
                     // IMP: A peer must never store the chunks of its own files.
                     //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives

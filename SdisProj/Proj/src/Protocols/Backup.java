@@ -18,7 +18,6 @@ public class Backup extends Thread{
 
     //sends putchunks on mdb
     //waits for store on ctrl
-
     public MC control,mdb;
     protected DatagramPacket send_put_chunk = null;
     protected DatagramPacket rec_stored = null;
@@ -52,7 +51,6 @@ public class Backup extends Thread{
 
     public void  run(){
         Timer timer = new Timer();
-        System.out.println("operation backup started");
                 /*
         * This message is used to ensure that the chunk is backed up with the desired replication degree as follows.
          * The initiator-peer collects the confirmation messages during a time interval of one second.
@@ -106,7 +104,7 @@ public class Backup extends Thread{
                         System.out.println("i: " + i + "  " + parsed[i] );
                     }
                     if(parsed[0].equals("STORED")){ //type must be stored
-                        if(Integer.parseInt(parsed[4]) == chunkNo && parsed[3].equals(fileId) ){
+                        if(Integer.parseInt(parsed[4]) == chunkNo /*&& parsed[3].equals(fileId)*/ ){
                             // add senderId to peers array
                             peers[currentReplication] = parsed[2];
                             currentReplication ++ ;
