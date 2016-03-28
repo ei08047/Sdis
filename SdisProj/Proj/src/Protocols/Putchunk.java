@@ -3,7 +3,9 @@ package Protocols;
 import chanels.MC;
 import messages.ParseHeader;
 import messages.StoredMsg;
+import peer.Peer;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.MulticastSocket;
@@ -47,7 +49,6 @@ public class Putchunk extends Thread {
                         System.out.println("i: " + i + "  " + parsed[i]);
                     }
 
-                    //type must be putchunk
                     // IMP: A peer must never store the chunks of its own files.
                     //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
                     // 1 - find peer directory
@@ -55,12 +56,27 @@ public class Putchunk extends Thread {
                     //    2 - find / create directory with name = fileId
                     //       3 - find / create file named chunkNo
                     //          4 - sends stored
-                    System.out.println("wait and send store"); // 0 to 400 ms
-                    //create datagram
+
                     StoredMsg storedMsg = new StoredMsg("version", "sender", "file", 1);
                     buf = storedMsg.getBytes();
                     packet_store = new DatagramPacket(buf, buf.length, control.getMc_addr(), control.getMc_port());
-                    control.getMc_socket().send(packet_store);
+
+                    if(parsed[0].equals("PUTCHUNK")){ //type must be putchunk
+                        String path = "./data/" + Peer.id + "/" + parsed[3];
+                        File f = new File(path);
+                        if (f.exists() && f.isDirectory()) {
+                            File c = new File (path + "/" + parsed[4]);
+                            if(c.exists()){
+                                System.out.println("wait and send store"); // 0 to 400 ms
+                                //create datagram
+                                control.getMc_socket().send(packet_store);
+                            }else{
+                                //save to disk
+                                control.getMc_socket().send(packet_store);
+                            }
+                        }
+                    }
+
 
                 }
             } catch (IOException e) {

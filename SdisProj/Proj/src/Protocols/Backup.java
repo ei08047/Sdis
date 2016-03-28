@@ -1,6 +1,7 @@
 package Protocols;
 
 import chanels.MC;
+import messages.ParseHeader;
 import messages.PutChunkMsg;
 
 import java.io.File;
@@ -91,17 +92,28 @@ public class Backup extends Thread{
     //receives store
     public void receive() {
         //STORED <Version> <SenderId> <FileId> <ChunkNo> <CRLF><CRLF>
-        //replace true with timer
+        ParseHeader p = new ParseHeader();
         while (true) {
             try {
                 buf = new byte[maxSize];
                 rec_stored = new DatagramPacket(buf, buf.length);
                 control.getMc_socket().receive(rec_stored);
                 if (rec_stored.getData() != null) {
-                    //type must be stored
-                    // add senderId to peers array
-                    peers[currentReplication] = rec_stored.getAddress().getHostAddress();
-                    currentReplication ++ ;
+                    String msg = new String(rec_stored.getData());
+                    String[] parsed = p.parse(msg);
+
+                    for (int i = 0; i < parsed.length; i++) {
+                        System.out.println("i: " + i + "  " + parsed[i] );
+                    }
+                    if(parsed[0].equals("STORED")){ //type must be stored
+                        if(Integer.parseInt(parsed[4]) == chunkNo && parsed[3].equals(fileId) ){
+                            // add senderId to peers array
+                            peers[currentReplication] = parsed[2];
+                            currentReplication ++ ;
+                        }
+                    }
+
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
