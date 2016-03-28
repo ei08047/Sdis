@@ -23,7 +23,7 @@ public class InterfaceChannel extends Thread {
     int rep;
 
     public InterfaceChannel(int port_number) throws IOException {
-        System.out.println("Creating interface connection");
+        //System.out.println("Creating interface connection");
         port = port_number;
         socket = new DatagramSocket(port);
     }
@@ -34,7 +34,7 @@ public class InterfaceChannel extends Thread {
     }
 
     public void receive() {
-        System.out.println("listening on interface channel on port " + port);
+        //System.out.println("listening on interface channel on port " + port);
         while (true) {
             try {
                 buf = new byte[maxSize];
@@ -42,12 +42,11 @@ public class InterfaceChannel extends Thread {
                 socket.receive(recv);
                 if(recv.getData() != null){
                     String received = new String(recv.getData(), 0, recv.getLength());
-                    System.out.println("Interface sent : " + received);
+                    //System.out.println("Interface sent : " + received);
                     String[] parse = received.split(" ");
                     operation = parse[0];
                     ///Just got the command order
                     if(operation.equals("backup")){       // if backup file rep
-                        System.out.println("operation: " + operation);
                         filename = parse[1]; //first operand must be path to a file!
                         //if file exists
                         rep = Integer.parseInt(parse[2]);
@@ -73,13 +72,12 @@ public class InterfaceChannel extends Thread {
                             if(bytesRead > 0){
                                 //body in temporary
                                 //one Backup for each Chunk
-                                Backup backup = new Backup(Peer.id, "file", rep ,"body" ,NUMBER_OF_CHUNKS , Peer.mc, Peer.mdb );
+                                Backup backup = new Backup(Peer.id, filename, rep ,"body" ,NUMBER_OF_CHUNKS , Peer.mc, Peer.mdb );
                                 backup.start();
                                 totalBytesRead += bytesRead;
                                 NUMBER_OF_CHUNKS ++;
                             }
                         }
-                        System.out.println("finished splitting file!!");
                     }else   //else restore file
                     if(operation.equals("restore")){
                         //Restore()

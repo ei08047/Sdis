@@ -43,7 +43,7 @@ public class Backup extends Thread{
         filename = file;
         repDegree = replication;
         chunkNo = cNo;
-        peers = new String[repDegree];
+        peers = new String[100];
         body = b;
         control = ctrl;
         mdb = backup;
@@ -51,7 +51,6 @@ public class Backup extends Thread{
     }
 
     public void  run(){
-        Timer timer = new Timer();
                 /*
         * This message is used to ensure that the chunk is backed up with the desired replication degree as follows.
          * The initiator-peer collects the confirmation messages during a time interval of one second.
@@ -70,15 +69,9 @@ public class Backup extends Thread{
             try {
                 numTries++;
                 //System.out.println("num Tries: " + numTries + "  on chunk No :" + chunkNo + "   with current rep:" + currentReplication);
-               mdb.getMc_socket().send(send_put_chunk);
+                mdb.getMc_socket().send(send_put_chunk);
                 //try to
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        receive();
-                    }
-                }, wattingTime);
-
+                receive();
                 wattingTime = wattingTime * 2;
 
             } catch (IOException e) {
@@ -111,8 +104,6 @@ public class Backup extends Thread{
                             }
                         }
                     }
-
-
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -125,7 +116,7 @@ public class Backup extends Thread{
 
     public boolean checkSender(String sender){
         boolean exists = false;
-        for (int i = 0; i < peers.length ; i++) {
+        for (int i = 0; i < currentReplication ; i++) {
             if(peers[i].equals(sender))
                 exists = true;
         }
