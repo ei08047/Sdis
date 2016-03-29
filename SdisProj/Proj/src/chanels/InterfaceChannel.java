@@ -19,14 +19,10 @@ public class InterfaceChannel extends Thread {
     byte[] buf;
     static int maxSize = 64000;
     String operation;
-    String fileId;
     String filename;
     int rep;
 
-    //peer's file metadata
-    String[] filenames = null;
-    String[] fileIds = null;
-    int[] NoChunks = null;
+
 
 
     public InterfaceChannel(int port_number) throws IOException {
@@ -111,44 +107,7 @@ public class InterfaceChannel extends Thread {
         }
     }
 
-    /*
-    public void retrieveMeta(){
-        FileInputStream fstream = null;
-        try {
-            fstream = new FileInputStream("./data/meta.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        DataInputStream in = new DataInputStream(fstream);
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        String strLine;
-        int count = 0;
-        try {
-            while( (strLine = br.readLine()) != null ){
-                String[] parsed = strLine.split(" ");
-                filenames[count] = parsed[0];
-                fileIds[count]= parsed[1];
-                NoChunks[count] = Integer.parseInt(parsed[2]);
-                count++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-*/
-    public void updateMeta(){
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("./data/meta.txt"), true));
-            for (int i = 0; i < filenames.length; i++) {
-                bw.write(filenames[i] + " " + fileIds[i] + " " + NoChunks[i]);
-                bw.newLine();
-            }
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-    }
 
 
 
