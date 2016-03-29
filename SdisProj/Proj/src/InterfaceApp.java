@@ -65,6 +65,11 @@ public class InterfaceApp {
                         DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
                         // send request
                         socket.send(packet);
+                        //// TODO: 29/03/2016 to be completed 
+                    } else if(operation.equals("delete")){
+
+                    } else if(operation.equals("reclaim")){
+
                     }
 
                     //socket.close();

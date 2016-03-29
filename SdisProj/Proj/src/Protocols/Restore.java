@@ -72,6 +72,7 @@ public class Restore extends Thread{
                     if(parsed[0].equals("CHUNK")){
 
                     }
+                    //// TODO: 29/03/2016 receive chunk save to disk 
                     //do i have this chunk
                     // if not save to disk
                 }

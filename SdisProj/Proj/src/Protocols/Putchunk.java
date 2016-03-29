@@ -52,7 +52,7 @@ public class Putchunk extends Thread {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    //// TODO: 29/03/2016 verifications 
+                    //// TODO: 29/03/2016 verifications
                     // IMP: A peer must never store the chunks of its own files.
                     //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
                     // 1 - find peer directory
@@ -80,7 +80,8 @@ public class Putchunk extends Thread {
                                 System.out.println("save to disk");
                                 control.getMc_socket().send(packet_store);
                             }
-                        }else
+                        }
+                        else
                         {
                             c.getParentFile().mkdirs();
                             c.createNewFile();
