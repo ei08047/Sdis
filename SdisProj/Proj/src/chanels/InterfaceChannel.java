@@ -79,8 +79,8 @@ public class InterfaceChannel extends Thread {
                             if(bytesRead > 0){
                                 //body in temporary
                                 //one Backup for each Chunk
-
-                                Backup backup = new Backup(Peer.id, filename,getFileId(filename) , rep ,"body" ,NUMBER_OF_CHUNKS , Peer.mc, Peer.mdb );
+                                int index = Peer.getFileIndex(filename);
+                                Backup backup = new Backup(Peer.id, Peer.peerFiles[index].getName(), Peer.peerFilesIds[index] ,rep ,"body" ,NUMBER_OF_CHUNKS , Peer.mc, Peer.mdb );
                                 backup.start();
                                 totalBytesRead += bytesRead;
                                 NUMBER_OF_CHUNKS ++;
@@ -111,6 +111,7 @@ public class InterfaceChannel extends Thread {
         }
     }
 
+    /*
     public void retrieveMeta(){
         FileInputStream fstream = null;
         try {
@@ -134,7 +135,7 @@ public class InterfaceChannel extends Thread {
             e.printStackTrace();
         }
     }
-
+*/
     public void updateMeta(){
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(new File("./data/meta.txt"), true));
@@ -149,28 +150,6 @@ public class InterfaceChannel extends Thread {
 
     }
 
-    // given the filename.extension returns the fileId String
-    public static String getFileId(String file){
-        File f = new File( "data/" + file );
-        String test = file + f.lastModified() ;
-        MessageDigest digest = null;
-        String result;
-        try{
-            digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(test.getBytes("UTF-8"));
-            StringBuffer hexString = new StringBuffer();
 
-            for (int i = 0; i < hash.length; i++) {
-                String hex = Integer.toHexString(0xff & hash[i]);
-                if(hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-
-            result = hexString.toString();
-        } catch(Exception ex){
-            throw new RuntimeException(ex);
-        }
-        return result;
-    }
 
 }
