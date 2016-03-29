@@ -26,9 +26,10 @@ public class Backup extends Thread{
     byte[] buf;
     String body;
     static int maxSize = 64000;
+    String filename;
     String fileId;
     int peerId;
-    String filename;
+
     int chunkNo;
     int repDegree;
     int currentReplication =0;
@@ -38,7 +39,7 @@ public class Backup extends Thread{
 
 
 
-    public Backup(int id, String file, int replication,String b, int cNo,   MC ctrl, MC backup ){
+    public Backup(int id, String file,String fId , int replication,String b, int cNo,   MC ctrl, MC backup ){
         peerId = id;
         filename = file;
         repDegree = replication;
@@ -47,21 +48,12 @@ public class Backup extends Thread{
         body = b;
         control = ctrl;
         mdb = backup;
-        fileId = getFileId(filename);
+        fileId = fId;
     }
 
     public void  run(){
         wattingTime = 1000;
-                /*
-        * This message is used to ensure that the chunk is backed up with the desired replication degree as follows.
-         * The initiator-peer collects the confirmation messages during a time interval of one second.
-         * If the number of confirmation messages it received up to the end of that interval is lower
-         * than the desired replication degree, it retransmits the backup message on the MDB channel,
-         * and doubles the time interval for receiving confirmation messages.
-          * This procedure is repeated up to a maximum number of five times,
-          * i.e.the initiator will send at most 5 PUTCHUNK messages per chunk.
-        * */
-        while( numTries < 5 || currentReplication < repDegree ){ //peers.length < repDegree &&
+        while( numTries < 5 && currentReplication < repDegree ){ //peers.length < repDegree &&
             //putchunks on mdb  PUTCHUNK <Version> <SenderId> <FileId> <ChunkNo> <ReplicationDeg> <CRLF><CRLF><Body>
             PutChunkMsg p = new PutChunkMsg(Peer.version, Peer.id, fileId, chunkNo, "body" + chunkNo , 1);
             byte[] buf = new byte[64000] ;
@@ -70,14 +62,12 @@ public class Backup extends Thread{
 
             try {
                 numTries++;
-                System.out.println("num Tries: " + numTries + "  on chunk No :" + chunkNo + "   with current rep:" + currentReplication);
                 mdb.getMc_socket().send(send_put_chunk);
                 control.getMc_socket().setSoTimeout(wattingTime);
                 while(true){
                     receive();
                 }
             } catch (SocketTimeoutException e) {
-                System.out.println("try:" + numTries + " on chunk no:" + chunkNo);
                 wattingTime = wattingTime * 2;
             } catch (SocketException e) {
                 e.printStackTrace();
@@ -101,12 +91,9 @@ public class Backup extends Thread{
             String[] parsed = p.parse(msg);
             if(parsed[0].equals("STORED")){
                 //type must be stored
-                System.out.println("received typer stored");
                 if(Integer.parseInt(parsed[4]) == chunkNo /*&& parsed[3].equals(fileId)*/ ){
                     // check if sender is already in sender array
-                    System.out.println(" for chunk: " + chunkNo);
                     if( !checkSender(parsed[2])){
-                        System.out.println(" from peer " + parsed[2]);
                         peers[currentReplication] = parsed[2];
                         currentReplication ++ ;
                     }
@@ -126,30 +113,6 @@ public class Backup extends Thread{
                 exists = true;
         }
         return exists;
-    }
-
-    // given the filename.extension returns the fileId String
-    public static String getFileId(String file){
-        File f = new File( "data/" + file );
-        String test = file + f.lastModified() ;
-        MessageDigest digest = null;
-        String result;
-        try{
-            digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(test.getBytes("UTF-8"));
-            StringBuffer hexString = new StringBuffer();
-
-            for (int i = 0; i < hash.length; i++) {
-                String hex = Integer.toHexString(0xff & hash[i]);
-                if(hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-
-            result = hexString.toString();
-        } catch(Exception ex){
-            throw new RuntimeException(ex);
-        }
-        return result;
     }
 
 }

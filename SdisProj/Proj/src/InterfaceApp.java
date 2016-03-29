@@ -24,7 +24,7 @@ public class InterfaceApp {
     static int port;
 
     public static void main(String[] args) throws IOException {
-        if (args.length < 4) {
+        if (args.length < 3) {
             System.out.println("java Interface <peer_ap> <sub_protocol> <opnd_1> <opnd_2> ");
             return;
         }else{

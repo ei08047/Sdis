@@ -14,6 +14,8 @@ import java.util.Random;
 /**
  * Created by ei08047 on 22-03-2016.
  */
+//receives putchunk
+//sends stored
 public class Putchunk extends Thread {
     public MC mdb,control;
     DatagramPacket packet_putChunk = null;
@@ -24,9 +26,7 @@ public class Putchunk extends Thread {
         control = ctrl;
     }
 
-
     public void run(){
-        System.out.println("Im here! send me a putchunk!");
         receive();
     }
 
@@ -40,21 +40,17 @@ public class Putchunk extends Thread {
             packet_putChunk = new DatagramPacket(buf, buf.length);
             try {
                 mdb.getMc_socket().receive(packet_putChunk);
-
                 if (packet_putChunk.getData() != null) {
                     String msg = new String(packet_putChunk.getData());
-                    System.out.println("received222: " + msg);
+                    System.out.println("Backup channel received : " + msg);
                     ParseHeader p = new ParseHeader();
                     String[] parsed = p.parse(msg);
                     int sleepTime = rand.nextInt(400) + 1;
                     try {
-                        System.out.println("wait and send store"); // 0 to 400 ms
                         sleep(sleepTime);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-
                     // IMP: A peer must never store the chunks of its own files.
                     //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
                     // 1 - find peer directory
@@ -69,8 +65,8 @@ public class Putchunk extends Thread {
                     if(parsed[0].equals("PUTCHUNK")){ //type must be putchunk
                         String path = "./data/" + Peer.id + "/" + parsed[3];
                         File f = new File(path);
+                        File c = new File (path + "/" + parsed[4]);
                         if (f.exists() && f.isDirectory()) {
-                            File c = new File (path + "/" + parsed[4]);
                             if(c.exists()){
                                 System.out.println(parsed[4] + " already exists!!");
                                 //create datagram
@@ -84,12 +80,12 @@ public class Putchunk extends Thread {
                             }
                         }else
                         {
-                            f.mkdir();
+                            c.getParentFile().mkdirs();
+                            c.createNewFile();
+                            control.getMc_socket().send(packet_store);
                             System.out.println("just made folder named fileid");
                         }
                     }
-
-
                 }
             } catch (IOException e) {
                 e.printStackTrace();

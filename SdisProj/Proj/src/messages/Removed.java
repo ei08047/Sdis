@@ -3,7 +3,7 @@ package messages;
 /**
  * Created by zabrn on 19/03/2016.
  */
-public class Removed extends GetChunk {
+public class Removed extends GetChunkMsg {
 
     public Removed(String version, int senderID, String fileId, int chunkNo) {
         super(version, senderID, fileId, chunkNo);

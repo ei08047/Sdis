@@ -3,7 +3,7 @@ package messages;
 /**
  * Created by zabrn on 19/03/2016.
  */
-public class StoredMsg extends GetChunk {
+public class StoredMsg extends GetChunkMsg {
 
 
     public StoredMsg(String version, int senderID, String fileId, int chunkNo) {

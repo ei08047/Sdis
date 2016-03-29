@@ -3,11 +3,11 @@ package messages;
 /**
  * Created by zabrn on 19/03/2016.
  */
-public class Chunk extends GetChunk {
+public class ChunkMsg extends GetChunkMsg {
 
     protected String body;
 
-    public Chunk(String version, int senderID, String fileId, int chunkNo, String body) {
+    public ChunkMsg(String version, int senderID, String fileId, int chunkNo, String body) {
         super(version, senderID, fileId, chunkNo);
         this.type = "CHUNK";
         this.body = body;

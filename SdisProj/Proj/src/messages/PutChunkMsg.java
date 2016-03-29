@@ -3,7 +3,7 @@ package messages;
 /**
  * Created by zabrn on 19/03/2016.
  */
-public class PutChunkMsg extends Chunk {
+public class PutChunkMsg extends ChunkMsg {
 
     private int replicationDeg;
 

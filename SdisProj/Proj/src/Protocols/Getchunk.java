@@ -1,5 +1,8 @@
 package Protocols;
 
+import messages.ChunkMsg;
+import peer.Peer;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.MulticastSocket;
@@ -36,7 +39,10 @@ public class Getchunk extends Thread {
             control.receive(packet);
             if(packet.getData() != null){
                 String msg = new String(packet.getData());
-                System.out.println("received3: " + msg);
+                System.out.println("control chanel received : " + msg);
+                String[] parsed = msg.split(" ");
+                //check if getchunk
+                ChunkMsg c = new ChunkMsg(Peer.version,Peer.id, parsed[3], Integer.parseInt(parsed[4]), "body" );
                 //prepare chunk / wait
                 //send chunk
 
@@ -47,7 +53,4 @@ public class Getchunk extends Thread {
 
 
     }
-
-
-    //sends chunks
 }
