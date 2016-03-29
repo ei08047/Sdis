@@ -17,6 +17,7 @@ public  class MC {
     protected InetAddress mc_addr;
     protected int mc_port;
     protected String type;
+    protected int MAX_SIZE= 65536;
 
     public MC(String addr, int port, String type) {
         this.type = type;
@@ -62,5 +63,20 @@ public  class MC {
     public InetAddress getMc_addr(){
         return mc_addr;
     }
+
+    public DatagramPacket receive()
+    {
+        byte[] buffer = new byte[MAX_SIZE];
+        DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
+        return packet;
+
+    }
+
+    public void send(String msg) throws IOException {
+        DatagramPacket packet = new DatagramPacket(msg.trim().getBytes(), msg.trim().getBytes().length, mc_addr, mc_port);
+        mc_socket.send(packet);
+    }
+
+
 }
 
