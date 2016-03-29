@@ -25,14 +25,14 @@ public class Peer {
     public static String version = "1.0";
 
     public static String path = "./data/";
-    public static String[] directories;
 
     public static File[] peerFiles;
     public static String[] peerFilesIds = new String[100];
     public static int[] peerFilesNoChunks = new int[100];
-
     public static int nFiles = 0;
 
+    public static int datagramWithBodySize = 65000;
+    public static int datagramWithoutBodySize = 1000;
     public static MC mc,mdb,mdr;
 
     public static String control_addr;
@@ -183,48 +183,7 @@ public class Peer {
         return  ret;
     }
 
-    /*
-    public void updateMeta(){
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("./data/meta.txt"), true));
-            for (int i = 0; i < filenames.length; i++) {
-                bw.write(filenames[i] + " " + fileIds[i] + " " + NoChunks[i]);
-                bw.newLine();
-            }
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-    }
-
-    */
-
-        /*
-    public void retrieveMeta(){
-        FileInputStream fstream = null;
-        try {
-            fstream = new FileInputStream("./data/meta.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        DataInputStream in = new DataInputStream(fstream);
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        String strLine;
-        int count = 0;
-        try {
-            while( (strLine = br.readLine()) != null ){
-                String[] parsed = strLine.split(" ");
-                filenames[count] = parsed[0];
-                fileIds[count]= parsed[1];
-                NoChunks[count] = Integer.parseInt(parsed[2]);
-                count++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-*/
 
 
 

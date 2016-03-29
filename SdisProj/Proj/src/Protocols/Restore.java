@@ -24,8 +24,8 @@ public class Restore extends Thread{
     protected DatagramPacket send_get_chunk = null;
 
 
-    byte[] buf;
-    static int maxSize = 64000;
+    byte[] buf1;
+    byte[] buf2;
 
     String fileId;
     String senderId;
@@ -43,9 +43,9 @@ public class Restore extends Thread{
     public void  run(){
         System.out.println("operation restore started");
         GetChunkMsg g = new GetChunkMsg(Peer.version, Peer.id, fileId, chunkNo);
-        byte[] buf = new byte[64000] ;
-        buf = g.getBytes();
-        send_get_chunk = new DatagramPacket(buf , buf.length ,control.getMc_addr() , control.getMc_port() );
+        buf1 = new byte[Peer.datagramWithoutBodySize] ;
+        buf1 = g.getBytes();
+        send_get_chunk = new DatagramPacket(buf1 , buf1.length ,control.getMc_addr() , control.getMc_port() );
 
         try {
             control.getMc_socket().send(send_get_chunk);
@@ -62,8 +62,8 @@ public class Restore extends Thread{
     public void receive() {
         while (true) {
             try {
-                buf = new byte[maxSize];
-                rec_chunk = new DatagramPacket(buf, buf.length);
+                buf2 = new byte[Peer.datagramWithBodySize];
+                rec_chunk = new DatagramPacket(buf2, buf2.length);
                 mdr.getMc_socket().receive(rec_chunk);
                 if (rec_chunk.getData() != null) {
                     String msg = new String(rec_chunk.getData());

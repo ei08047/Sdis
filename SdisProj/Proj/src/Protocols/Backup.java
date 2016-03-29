@@ -25,7 +25,6 @@ public class Backup extends Thread{
 
     byte[] buf;
     String body;
-    static int maxSize = 64000;
     String filename;
     String fileId;
     int peerId;
@@ -82,7 +81,7 @@ public class Backup extends Thread{
         //STORED <Version> <SenderId> <FileId> <ChunkNo> <CRLF><CRLF>
         ParseHeader p = new ParseHeader();
 
-        buf = new byte[maxSize];
+        buf = new byte[Peer.datagramWithoutBodySize];
         rec_stored = new DatagramPacket(buf, buf.length);
         control.getMc_socket().receive(rec_stored);
         if (rec_stored.getData() != null) {

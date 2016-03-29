@@ -36,7 +36,8 @@ public class Putchunk extends Thread {
         Random rand = new Random();
         while (true) {
 
-            byte[] buf = new byte[64000];
+            byte[] buf = new byte[Peer.datagramWithBodySize];
+            byte[] buf2 = new byte[Peer.datagramWithoutBodySize];
             packet_putChunk = new DatagramPacket(buf, buf.length);
             try {
                 mdb.getMc_socket().receive(packet_putChunk);
@@ -51,6 +52,7 @@ public class Putchunk extends Thread {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    //// TODO: 29/03/2016 verifications 
                     // IMP: A peer must never store the chunks of its own files.
                     //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
                     // 1 - find peer directory
@@ -59,8 +61,8 @@ public class Putchunk extends Thread {
                     //       3 - find / create file named chunkNo
                     //          4 - sends stored
                     StoredMsg storedMsg = new StoredMsg(Peer.version, Peer.id, parsed[3], Integer.parseInt(parsed[4]));
-                    buf = storedMsg.getBytes();
-                    packet_store = new DatagramPacket(buf, buf.length, control.getMc_addr(), control.getMc_port());
+                    buf2 = storedMsg.getBytes();
+                    packet_store = new DatagramPacket(buf2, buf2.length, control.getMc_addr(), control.getMc_port());
 
                     if(parsed[0].equals("PUTCHUNK")){ //type must be putchunk
                         String path = "./data/" + Peer.id + "/" + parsed[3];
