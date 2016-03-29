@@ -46,14 +46,15 @@ public class Getchunk extends Thread {
                 System.out.println("control chanel received : " + msg);
                 String[] parsed = msg.split(" ");
                 //check if getchunk
-                ChunkMsg c = new ChunkMsg(Peer.version,Peer.id, parsed[3], Integer.parseInt(parsed[4]), "body" );
-                byte[] buf2 = new byte[65000];
-                buf2 = c.getBytes();
-                packet_chunk = new DatagramPacket(buf2, buf2.length, mdr.getMc_addr(), mdr.getMc_port());
-                //prepare chunk / wait
-                //send chunk
-                mdr.getMc_socket().send(packet_chunk);
-
+                if(parsed[0].equals("GETCHUNK")){
+                    ChunkMsg c = new ChunkMsg(Peer.version,Peer.id, parsed[3], Integer.parseInt(parsed[4]), "body" );
+                    byte[] buf2 = new byte[65000];
+                    buf2 = c.getBytes();
+                    packet_chunk = new DatagramPacket(buf2, buf2.length, mdr.getMc_addr(), mdr.getMc_port());
+                    //prepare chunk / wait
+                    //send chunk
+                    mdr.getMc_socket().send(packet_chunk);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

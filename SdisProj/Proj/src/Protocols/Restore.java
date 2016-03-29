@@ -2,6 +2,7 @@ package Protocols;
 
 import chanels.MC;
 import messages.GetChunkMsg;
+import messages.ParseHeader;
 import peer.Peer;
 
 import java.io.File;
@@ -65,7 +66,12 @@ public class Restore extends Thread{
                 rec_chunk = new DatagramPacket(buf, buf.length);
                 mdr.getMc_socket().receive(rec_chunk);
                 if (rec_chunk.getData() != null) {
+                    String msg = new String(rec_chunk.getData());
+                    String[] parsed = new ParseHeader().parse(msg);
                     // type must be chunk
+                    if(parsed[0].equals("CHUNK")){
+
+                    }
                     //do i have this chunk
                     // if not save to disk
                 }
