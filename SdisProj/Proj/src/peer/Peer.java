@@ -1,17 +1,11 @@
 package peer;
 
-import Protocols.Getchunk;
-import Protocols.Putchunk;
+import listeners.Getchunk;
+import listeners.Putchunk;
 import chanels.*;
 
 import java.io.*;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
