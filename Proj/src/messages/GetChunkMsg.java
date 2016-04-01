@@ -5,6 +5,7 @@ package messages;
  */
 public class GetChunkMsg extends Header {
 
+    //sequence of ASCII characters corresponding to the decimal representation of that number,
     protected int chunkNo;
 
     public GetChunkMsg(String version, int senderID, String fileId, int chunkNo) {

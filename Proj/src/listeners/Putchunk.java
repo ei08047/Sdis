@@ -65,6 +65,21 @@ public class Putchunk extends Thread {
                     packet_store = new DatagramPacket(buf2, buf2.length, control.getMc_addr(), control.getMc_port());
 
                     if(parsed[0].equals("PUTCHUNK")){ //type must be putchunk
+
+                        //// TODO: 01-04-2016 enhancement
+                        /*
+                        * A peer should also count the number of confirmation messages for each of the chunks
+                         * it has stored and keep that count in non-volatile memory.
+                          * This information is used if the peer runs out of disk space: in that event,
+                           * the peer will try to free some space by evicting chunks whose actual replication degree is
+                            * higher than the desired replication degree.
+                            Enhancement: This scheme can deplete the backup space rather rapidly,
+                             and cause too much activity on the nodes once that space is full.
+                              Can you think of an alternative scheme that ensures the desired replication degree,
+                               avoids these problems, and, nevertheless, can interoperate with peers that execute
+                               the chunk backup protocol described above?
+                        * */
+
                         String path = "./data/" + Peer.id + "/" + parsed[3];
                         File f = new File(path);
                         File c = new File (path + "/" + parsed[4]);

@@ -20,9 +20,18 @@ package messages;
 
 public abstract class Header {
 
+
+
+    //// TODO: 01-04-2016 refactor message format  
+    //byte[] b = s.getBytes(StandardCharsets.US_ASCII);
+    //This is encoded as a variable length sequence of ASCII characters.
     protected String type;
+    // It is a three ASCII char sequence with the format <n>'.'<m>,
+    // where <n> and <m> are the ASCII codes of digits.
     protected String version;
+    //This is encoded as a variable length sequence of ASCII digits.
     protected int senderID;
+    //64 ASCII character sequence
     protected String fileID;
     protected String CRLF  = "\n\r";
     protected String ws = " ";

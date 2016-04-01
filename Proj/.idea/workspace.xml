@@ -25,8 +25,10 @@
         <entry file="file://$PROJECT_DIR$/src/Protocols/Delete.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding />
+              <caret line="36" column="41" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -35,75 +37,88 @@
         <entry file="file://$PROJECT_DIR$/src/Protocols/Backup.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MC.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chanels/MC.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="74" column="53" selection-start-line="74" selection-start-column="53" selection-end-line="75" selection-end-column="54" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1386#1387#0" expanded="false" />
-                <element signature="e#1418#1419#0" expanded="false" />
-                <element signature="e#1448#1449#0" expanded="false" />
-                <element signature="e#1478#1479#0" expanded="false" />
-                <element signature="e#1516#1517#0" expanded="false" />
-                <element signature="e#1546#1547#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/fileManager/FileManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InterfaceApp.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/InterfaceApp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.16932271">
-              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+              <caret line="92" column="17" selection-start-line="92" selection-start-column="17" selection-end-line="96" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Chunk.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chunks/Chunk.java">
+      <file leaf-file-name="Reclaim.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Protocols/Reclaim.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-              <folding>
-                <element signature="e#452#453#0" expanded="false" />
-                <element signature="e#479#480#0" expanded="false" />
-              </folding>
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InterfaceChannel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chanels/InterfaceChannel.java">
+      <file leaf-file-name="Putchunk.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/listeners/Putchunk.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="18" selection-end-column="15" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+              <caret line="98" column="28" selection-start-line="98" selection-start-column="28" selection-end-line="98" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Getchunk.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/listeners/Getchunk.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.08366534">
+              <caret line="56" column="38" selection-start-line="56" selection-start-column="38" selection-end-line="56" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Peer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/peer/Peer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChunkMsg.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/messages/ChunkMsg.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DeleteMsg.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/messages/DeleteMsg.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GetChunkMsg.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/messages/GetChunkMsg.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="7" column="94" selection-start-line="7" selection-start-column="94" selection-end-line="7" selection-end-column="94" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Header.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/messages/Header.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="38" column="27" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -131,6 +146,13 @@
         <option value="$PROJECT_DIR$/src/chanels/MC.java" />
         <option value="$PROJECT_DIR$/src/fileManager/FileManager.java" />
         <option value="$PROJECT_DIR$/src/chunks/Chunk.java" />
+        <option value="$PROJECT_DIR$/src/chanels/InterfaceChannel.java" />
+        <option value="$PROJECT_DIR$/src/Protocols/Restore.java" />
+        <option value="$PROJECT_DIR$/src/messages/Header.java" />
+        <option value="$PROJECT_DIR$/src/messages/GetChunkMsg.java" />
+        <option value="$PROJECT_DIR$/src/listeners/Putchunk.java" />
+        <option value="$PROJECT_DIR$/src/Protocols/Delete.java" />
+        <option value="$PROJECT_DIR$/src/listeners/Getchunk.java" />
       </list>
     </option>
   </component>
@@ -231,7 +253,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fileManager" />
+              <option name="myItemId" value="peer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -249,7 +271,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="chunks" />
+              <option name="myItemId" value="messages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Proj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Proj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="listeners" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -630,10 +670,10 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30899608" sideWeight="0.5236111" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30899608" sideWeight="0.4763889" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30899608" sideWeight="0.4763889" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25486112" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32847223" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -663,7 +703,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -671,9 +713,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -707,34 +747,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-          <folding>
-            <element signature="e#452#453#0" expanded="false" />
-            <element signature="e#479#480#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/chanels/InterfaceChannel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="18" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/peer/Peer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Protocols/Reclaim.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -743,9 +755,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="18" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -765,21 +775,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Protocols/Delete.java">
+    <entry file="file://$PROJECT_DIR$/src/InterfaceApp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Protocols/Backup.java">
+    <entry file="file://$PROJECT_DIR$/src/chanels/InterfaceChannel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <caret line="75" column="24" selection-start-line="75" selection-start-column="24" selection-end-line="75" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -787,10 +795,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-          <folding>
-            <element signature="e#452#453#0" expanded="false" />
-            <element signature="e#479#480#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -804,10 +809,92 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InterfaceApp.java">
+    <entry file="file://$PROJECT_DIR$/src/Protocols/Restore.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16932271">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="75" column="42" selection-start-line="75" selection-start-column="42" selection-end-line="75" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Protocols/Reclaim.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/peer/Peer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messages/Header.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="27" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messages/ChunkMsg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messages/DeleteMsg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messages/GetChunkMsg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="94" selection-start-line="7" selection-start-column="94" selection-end-line="7" selection-end-column="94" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Protocols/Delete.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="41" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/listeners/Putchunk.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="98" column="28" selection-start-line="98" selection-start-column="28" selection-end-line="98" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Protocols/Backup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="92" column="17" selection-start-line="92" selection-start-column="17" selection-end-line="96" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/listeners/Getchunk.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.08366534">
+          <caret line="56" column="38" selection-start-line="56" selection-start-column="38" selection-end-line="56" selection-end-column="38" />
           <folding />
         </state>
       </provider>

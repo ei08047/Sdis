@@ -77,6 +77,19 @@ public class Getchunk extends Thread {
                        * chunk, it should back off and restrain from starting
                         * yet another backup subprotocol for that file chunk.
                     * */
+
+                        //todo update own files replication degree
+                        /*
+                        * Upon receiving this message, a peer that has a local copy of the chunk shall update its
+                        * local count of this chunk.
+                        * If this count drops below the desired replication degree of that chunk,
+                         * it shall initiate the chunk backup subprotocol after a random delay uniformly
+                         * distributed between 0 and 400 ms.
+                         * If during this delay, a peer receives a PUTCHUNK message for the same file chunk,
+                          * it should back off and restrain from starting yet another backup subprotocol for that file chunk.
+                        * */
+
+
                     }
                 }
             }

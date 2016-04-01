@@ -82,13 +82,9 @@ public class InterfaceChannel extends Thread {
                                 NUMBER_OF_CHUNKS ++;
                             }
                         }
-
-
-
-
-
                     }else   //else restore file
                     if(operation.equals("restore")){
+                        //// TODO: 01-04-2016  parse restore operation
                         System.out.println("got restore");
                         //get file metadata
                         //first operand must be a file
@@ -96,6 +92,7 @@ public class InterfaceChannel extends Thread {
                         //r.start();
                     }else      //delete
                     if(operation.equals("delete")){
+                        //// TODO: 01-04-2016 parse delete operation
                         //DELETE <Version> <SenderId> <FileId> <CRLF><CRLF>
                         //Delete()
                         //first operand must be a file
