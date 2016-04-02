@@ -8,7 +8,6 @@ import peer.Peer;
 import java.io.File;
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.MulticastSocket;
 import java.util.Random;
 
 /**
@@ -27,6 +26,7 @@ public class Putchunk extends Thread {
     }
 
     public void run(){
+        System.out.println("starting backup listener");
         receive();
     }
 
@@ -52,21 +52,15 @@ public class Putchunk extends Thread {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    //// TODO: 29/03/2016 verifications
-                    // IMP: A peer must never store the chunks of its own files.
-                    //  IMP: a peer that has stored a chunk must reply with a STORED message to every PUTCHUNK message it receives
-                    // 1 - find peer directory
-                    // 1.1 - See if this peer has file in question
-                    //    2 - find / create directory with name = fileId
-                    //       3 - find / create file named chunkNo
-                    //          4 - sends stored
+
                     StoredMsg storedMsg = new StoredMsg(Peer.version, Peer.id, parsed[3], Integer.parseInt(parsed[4]));
                     buf2 = storedMsg.getBytes();
                     packet_store = new DatagramPacket(buf2, buf2.length, control.getMc_addr(), control.getMc_port());
 
                     if(parsed[0].equals("PUTCHUNK")){ //type must be putchunk
 
-                        //// TODO: 01-04-2016 enhancement
+                        if(! (Integer.parseInt(parsed[2]) == Peer.id)){// IMP: A peer must never store the chunks of its own files.
+                            //// TODO: 01-04-2016 enhancement
                         /*
                         * A peer should also count the number of confirmation messages for each of the chunks
                          * it has stored and keep that count in non-volatile memory.
@@ -80,29 +74,33 @@ public class Putchunk extends Thread {
                                the chunk backup protocol described above?
                         * */
 
-                        String path = "./data/" + Peer.id + "/" + parsed[3];
-                        File f = new File(path);
-                        File c = new File (path + "/" + parsed[4]);
-                        if (f.exists() && f.isDirectory()) {
-                            if(c.exists()){
-                                System.out.println(parsed[4] + " already exists!!");
-                                //create datagram
-                                control.getMc_socket().send(packet_store);
-                            }else{
+                            String path = "./data/" + Peer.id + "/" + parsed[3];
+                            File f = new File(path);
+                            File c = new File (path + "/" + parsed[4]);
+                            if (f.exists() && f.isDirectory()) {
+                                if(c.exists()){
+                                    System.out.println(parsed[4] + " already exists!!");
+                                    //create datagram
+                                    control.getMc_socket().send(packet_store);
+                                }else{
+                                    c.getParentFile().mkdirs();
+                                    c.createNewFile();
+                                    //save to disk
+                                    System.out.println("save to disk");
+                                    control.getMc_socket().send(packet_store);
+                                }
+                            }
+                            else
+                            {
                                 c.getParentFile().mkdirs();
                                 c.createNewFile();
-                                //save to disk
-                                System.out.println("save to disk");
                                 control.getMc_socket().send(packet_store);
+                                System.out.println("just made folder named fileid");
                             }
+
                         }
                         else
-                        {
-                            c.getParentFile().mkdirs();
-                            c.createNewFile();
-                            control.getMc_socket().send(packet_store);
-                            System.out.println("just made folder named fileid");
-                        }
+                            continue;
                     }
                 }
             } catch (IOException e) {

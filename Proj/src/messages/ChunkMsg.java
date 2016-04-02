@@ -5,9 +5,9 @@ package messages;
  */
 public class ChunkMsg extends GetChunkMsg {
 
-    protected String body;
+    protected byte[] body;
 
-    public ChunkMsg(String version, int senderID, String fileId, int chunkNo, String body) {
+    public ChunkMsg(String version, int senderID, String fileId, int chunkNo, byte[] body) {
         super(version, senderID, fileId, chunkNo);
         this.type = "CHUNK";
         this.body = body;

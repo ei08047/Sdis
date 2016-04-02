@@ -2,12 +2,11 @@ package chanels;
 
 
 import Protocols.Backup;
-import Protocols.Restore;
 import peer.Peer;
 
 import java.io.*;
-import java.net.*;
-import java.security.MessageDigest;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 
 /**
  * Created by ei08047 on 15-03-2016.
@@ -39,6 +38,7 @@ public class InterfaceChannel extends Thread {
     public void receive() {
         //System.out.println("listening on interface channel on port " + port);
         while (true) {
+
             try {
                 buf = new byte[maxSize];
                 recv = new DatagramPacket(buf, buf.length);
@@ -76,7 +76,7 @@ public class InterfaceChannel extends Thread {
                                 //body in temporary
                                 //one Backup for each Chunk
                                 int index = Peer.getFileIndex(filename);
-                                Backup backup = new Backup(Peer.id, Peer.peerFiles[index].getName(), Peer.peerFilesIds[index] ,rep ,"body" ,NUMBER_OF_CHUNKS , Peer.mc, Peer.mdb );
+                                Backup backup = new Backup(Peer.id, Peer.peerFiles[index].getName(), Peer.peerFilesIds[index] ,rep ,temporary ,NUMBER_OF_CHUNKS , Peer.mc, Peer.mdb );
                                 backup.start();
                                 totalBytesRead += bytesRead;
                                 NUMBER_OF_CHUNKS ++;

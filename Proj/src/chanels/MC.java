@@ -3,12 +3,6 @@ package chanels;
 import java.io.IOException;
 import java.net.*;
 
-
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
-
 /**
  * Created by ei08047 on 21-03-2016.
  */
@@ -44,9 +38,10 @@ public  class MC {
             e.printStackTrace();
         }
         try {
-            mc_socket.setLoopbackMode(true);
+            mc_socket.setLoopbackMode(false);
         } catch (SocketException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         //System.out.println("channel :" + type + "    on addr: " + mc_addr.getHostName() + "  port:" + mc_port);

@@ -5,12 +5,10 @@ import messages.ParseHeader;
 import messages.PutChunkMsg;
 import peer.Peer;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.*;
-import java.security.MessageDigest;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.net.DatagramPacket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 /**
  * Created by ei08047 on 15-03-2016.
@@ -24,7 +22,7 @@ public class Backup extends Thread{
     protected DatagramPacket rec_stored = null;
 
     byte[] buf;
-    String body;
+    byte[] body;
     String filename;
     String fileId;
     int peerId;
@@ -38,7 +36,7 @@ public class Backup extends Thread{
 
 
 
-    public Backup(int id, String file,String fId , int replication,String b, int cNo,   MC ctrl, MC backup ){
+    public Backup(int id, String file,String fId , int replication,byte[] b, int cNo,   MC ctrl, MC backup ){
         peerId = id;
         filename = file;
         repDegree = replication;
@@ -54,7 +52,7 @@ public class Backup extends Thread{
         wattingTime = 1000;
         while( numTries < 5 && currentReplication < repDegree ){ //peers.length < repDegree &&
             //putchunks on mdb  PUTCHUNK <Version> <SenderId> <FileId> <ChunkNo> <ReplicationDeg> <CRLF><CRLF><Body>
-            PutChunkMsg p = new PutChunkMsg(Peer.version, Peer.id, fileId, chunkNo, "body" + chunkNo , 1);
+            PutChunkMsg p = new PutChunkMsg(Peer.version, Peer.id, fileId, chunkNo,body , 1);
             byte[] buf = new byte[64000] ;
             buf = p.getBytes();
             send_put_chunk = new DatagramPacket(buf , buf.length ,mdb.getMc_addr() , mdb.getMc_port() );

@@ -29,6 +29,12 @@ public class Delete extends Thread {
         buf = d.getBytes();
         send_delete = new DatagramPacket(buf, buf.length, control.getMc_addr() , control.getMc_port());
 
+        try {
+            control.getMc_socket().send(send_delete);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //send enougth times
         //// TODO: 29/03/2016 send delete msg enought times
 

@@ -1,5 +1,6 @@
 package peer;
 
+import fileManager.Database;
 import listeners.Getchunk;
 import listeners.Putchunk;
 import chanels.*;
@@ -19,6 +20,10 @@ public class Peer {
     public static String version = "1.0";
 
     public static String path = "./data/";
+    public static String databasePath = "./db/";
+
+
+    public static Database db = new Database();
 
     public static File[] peerFiles;
     public static String[] peerFilesIds = new String[100];
@@ -81,13 +86,23 @@ public class Peer {
 
                 if (matcher1.matches() && matcher2.matches() && matcher3.matches()) {
 
-                    try{
+                    try{ //
                         //create dir data if it doesnt exist
                         new File(path + id).mkdirs();
+                        new File(databasePath).mkdirs();
                     }catch (SecurityException e ){
                         System.out.println(e.getMessage());
                     }
-                    // create peer dir if doesnt exist
+
+                    try {
+                        db.load();
+                        System.out.println("TAM: "+Peer.db.db.size());
+
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+
 
                     peerFiles = retrieveFiles();
 
@@ -96,6 +111,8 @@ public class Peer {
                         peerFilesNoChunks[i] =  getFileNoChunks(peerFiles[i]);
                         System.out.println( "file:  " + peerFiles[i].getName() + " | | " +  peerFilesIds[i] + " | | " +  peerFilesNoChunks[i] );
                     }
+
+
 
                     control_port = Integer.parseInt(control[1]);
                     backup_port = Integer.parseInt(backup[1]);
@@ -110,10 +127,10 @@ public class Peer {
                     interfaceChannel.start();
 
                     backup_listener = new Putchunk(mdb , mc);
-                    //restore_listener = new Getchunk( mdr.getMc_socket() , mc.getMc_socket() );
+                    restore_listener = new Getchunk( mdr , mc );
 
                     backup_listener.start();
-                    //restore_listener.start();
+                    restore_listener.start();
 
                 } else {
                     System.out.println("error: <port_number>");
