@@ -102,9 +102,10 @@ public class Getchunk extends Thread {
                                     if(!Peer.db.exists(r)){
 
                                     Peer.db.addRecord(r);
-                                        r.save();
-                                    //Peer.db.save();
                                     System.out.println("ARRAY SIZE:" + Peer.db.db.size());
+                                    r.save();
+
+
                                     }
                                 }
                             }

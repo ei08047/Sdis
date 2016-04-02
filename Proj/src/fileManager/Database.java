@@ -43,6 +43,7 @@ public class Database implements Serializable{
          else {
              try {
                  int records = i.listFiles().length;
+                 //possivel que seja para mudar para records>1 ....
                  if(records>0){
                      for (int j = 0; j < records; j++) {
                          FileInputStream fileIn = new FileInputStream(this.path + "rec" + j + ".ser");
