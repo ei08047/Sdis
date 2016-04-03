@@ -13,18 +13,18 @@ import java.net.DatagramPacket;
 public class Delete extends Thread {
 
     MC control;
-    String senderId;
+    int senderId;
     String fileId;
     protected DatagramPacket send_delete = null;
 
-    public Delete(MC ctrl,String sId,String fId){
+    public Delete(MC ctrl,int sId,String fId){
         control = ctrl;
         senderId = sId;
         fileId = fId;
     }
 
     public void run(){
-        DeleteMsg d = new DeleteMsg(Peer.version, Integer.parseInt(senderId), fileId );
+        DeleteMsg d = new DeleteMsg(Peer.version,senderId, fileId );
         byte[] buf = new byte[Peer.datagramWithoutBodySize];
         buf = d.getBytes();
         send_delete = new DatagramPacket(buf, buf.length, control.getMc_addr() , control.getMc_port());
@@ -37,6 +37,17 @@ public class Delete extends Thread {
 
         //send enougth times
         //// TODO: 29/03/2016 send delete msg enought times
+
+        for (int i = 0; i < 5; i++) {
+            try {
+                control.getMc_socket().send(send_delete);
+                sleep(200);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
 
 

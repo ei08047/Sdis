@@ -1,6 +1,7 @@
 package listeners;
 
 import chanels.MC;
+import fileManager.FileManager;
 import fileManager.Record;
 import messages.ChunkMsg;
 import peer.Peer;
@@ -66,6 +67,8 @@ public class Getchunk extends Thread {
                     } else {
                         if (parsed[0].equals("DELETE")) { //0-oper 1-version 2-sender 3-file
                             //// TODO: 29/03/2016  delete backup chunks
+                            FileManager.deleteDirectory( parsed[3]);
+                        //todo  need to update records
 
 
                         } else {
@@ -92,20 +95,14 @@ public class Getchunk extends Thread {
                              * If during this delay, a peer receives a PUTCHUNK message for the same file chunk,
                               * it should back off and restrain from starting yet another backup subprotocol for that file chunk.
                             * */
-
-
                             } else {
                                 if (parsed[0].equals("STORED")) {
-                                    System.out.println("STORED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                                     Record r = new Record(parsed[3], Integer.parseInt(parsed[2]), Integer.parseInt(parsed[4]));
 
-                                    if(!Peer.db.exists(r)){
-
+                                    if(!Peer.db.exists(r))
+                                    {
                                     Peer.db.addRecord(r);
-                                    System.out.println("ARRAY SIZE:" + Peer.db.db.size());
                                     r.save();
-
-
                                     }
                                 }
                             }

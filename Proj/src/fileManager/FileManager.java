@@ -1,6 +1,7 @@
 package fileManager;
 
 import chunks.Chunk;
+import peer.Peer;
 
 import java.io.*;
 
@@ -9,7 +10,7 @@ import java.io.*;
  */
 public class FileManager {
 
-    static private String basePath = "..//Proj//files//";
+    static private String basePath = "../Proj/data/";
 
 
     public FileManager() throws IOException {
@@ -33,14 +34,24 @@ public class FileManager {
         return path;
     }
 
-    public static void deleteDirectory(String fileID)
+    public static void deleteDirectory (String fileID)
     {
-        String path = getPath(fileID);
+        String path = basePath + Peer.id + "/" + fileID;
+        System.out.println("deleting dir"+ path);
         if(fileExists(path))
         {
-            File file = new File(path);
-            file.delete();
-        }
+            File directory = new File(path);
+
+            File[] files = directory.listFiles();
+            if(null!=files){
+                for(int i=0; i<files.length; i++) {
+                        files[i].delete();
+                }
+            }
+
+
+
+    }
         else
             System.out.println("--SDirectorio não existe");
 

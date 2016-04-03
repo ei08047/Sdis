@@ -29,7 +29,7 @@ public class InterfaceApp {
             return;
         }else{
             String patternPortNumber = "^[0-9]{4}$";
-            String patternOperation = "^backup$|^restore$|^deletion$";
+            String patternOperation = "^backup$|^restore$|^delete$";
 
             Pattern pattern = Pattern.compile(patternPortNumber);
             Matcher matcher = pattern.matcher(args[0]);
@@ -67,6 +67,16 @@ public class InterfaceApp {
                         socket.send(packet);
                         //// TODO: 29/03/2016 to be completed 
                     } else if(operation.equals("delete")){
+                        byte[] buf ;
+                        construct = operation + " " + args[2];
+                        buf = construct.getBytes();
+                        InetAddress address = InetAddress.getLocalHost();
+
+                        // get a datagram socket
+                        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
+                        // send request
+                        socket.send(packet);
+
 
                     } else if(operation.equals("reclaim")){
 

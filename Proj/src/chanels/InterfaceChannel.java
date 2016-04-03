@@ -2,6 +2,7 @@ package chanels;
 
 
 import Protocols.Backup;
+import Protocols.Delete;
 import peer.Peer;
 
 import java.io.*;
@@ -20,7 +21,6 @@ public class InterfaceChannel extends Thread {
     String operation;
     String filename;
     int rep;
-
 
 
 
@@ -93,9 +93,8 @@ public class InterfaceChannel extends Thread {
                     }else      //delete
                     if(operation.equals("delete")){
                         //// TODO: 01-04-2016 parse delete operation
-                        //DELETE <Version> <SenderId> <FileId> <CRLF><CRLF>
-                        //Delete()
-                        //first operand must be a file
+                        Delete d = new Delete(Peer.mc, Peer.id, parse[1] );
+                        d.start();
                     }
                 }
             } catch (IOException e) {
