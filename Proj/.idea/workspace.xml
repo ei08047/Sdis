@@ -24,21 +24,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="InterfaceApp.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="InterfaceApp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/InterfaceApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.40113">
+            <state vertical-scroll-proportion="0.0">
               <caret line="66" column="22" selection-start-line="66" selection-start-column="22" selection-end-line="66" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Peer.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Peer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/peer/Peer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.33898306">
+              <caret line="100" column="20" selection-start-line="100" selection-start-column="20" selection-end-line="100" selection-end-column="20" />
               <folding>
                 <element signature="method#retrieveFiles#0;class#Peer#0" expanded="false" />
                 <element signature="method#getFileId#0;class#Peer#0" expanded="false" />
@@ -140,10 +140,10 @@
       <list>
         <option value="$PROJECT_DIR$/src/chanels/MC.java" />
         <option value="$PROJECT_DIR$/src/listeners/Putchunk.java" />
-        <option value="$PROJECT_DIR$/src/peer/Peer.java" />
         <option value="$PROJECT_DIR$/src/Protocols/Backup.java" />
         <option value="$PROJECT_DIR$/src/Protocols/Delete.java" />
         <option value="$PROJECT_DIR$/src/InterfaceApp.java" />
+        <option value="$PROJECT_DIR$/src/peer/Peer.java" />
       </list>
     </option>
   </component>
@@ -809,12 +809,12 @@
       <created>1459698668116</created>
       <option name="number" value="Default" />
       <updated>1459698668116</updated>
-      <workItem from="1459698673281" duration="7162000" />
+      <workItem from="1459698673281" duration="8334000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7162000" />
+    <option name="totallyTimeSpent" value="8334000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -826,7 +826,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1432" y="-8" width="1040" height="744" extended-state="7" />
+    <frame x="1432" y="-8" width="1040" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -908,18 +908,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/peer/Peer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
-          <folding>
-            <element signature="method#retrieveFiles#0;class#Peer#0" expanded="false" />
-            <element signature="method#getFileId#0;class#Peer#0" expanded="false" />
-            <element signature="method#getFileNoChunks#0;class#Peer#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/listeners/Putchunk.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -978,9 +966,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/InterfaceApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.40113">
+        <state vertical-scroll-proportion="0.0">
           <caret line="66" column="22" selection-start-line="66" selection-start-column="22" selection-end-line="66" selection-end-column="22" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/peer/Peer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33898306">
+          <caret line="100" column="20" selection-start-line="100" selection-start-column="20" selection-end-line="100" selection-end-column="20" />
+          <folding>
+            <element signature="method#retrieveFiles#0;class#Peer#0" expanded="false" />
+            <element signature="method#getFileId#0;class#Peer#0" expanded="false" />
+            <element signature="method#getFileNoChunks#0;class#Peer#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

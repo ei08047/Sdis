@@ -22,7 +22,6 @@ public class Peer {
     public static String path = "./data/";
     public static String databasePath = "./db/";
 
-
     public static Database db = new Database();
 
     public static File[] peerFiles;
@@ -67,25 +66,16 @@ public class Peer {
             String backup[] = args[2].split(":");
             String restore[] = args[3].split(":");
 
-            String patternHostName = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}";
-            String patternPortNumber = "^[0-9]{4}$";
-            Pattern pattern = Pattern.compile(patternHostName);
-            Matcher matcher1 = pattern.matcher(control[0]);
-            Matcher matcher2 = pattern.matcher(backup[0]);
-            Matcher matcher3 = pattern.matcher(restore[0]);
-            if (matcher1.matches() && matcher2.matches() && matcher3.matches()) {
+            if (isMulticastAddress(control[0]) && isMulticastAddress(backup[0]) && isMulticastAddress(restore[0]) ) {
 
                 control_addr = control[0];
                 backup_addr = backup[0];
                 restore_addr = restore[0];
 
-                pattern = Pattern.compile(patternPortNumber);
-                matcher1 = pattern.matcher(control[1]);
-                matcher2 = pattern.matcher(backup[1]);
-                matcher3 = pattern.matcher(restore[1]);
-
-                if (matcher1.matches() && matcher2.matches() && matcher3.matches()) {
-
+                if (isPortNumber(control[1]) && isPortNumber(backup[1]) && isPortNumber(restore[1]) ) {
+                    control_port = Integer.parseInt(control[1]);
+                    backup_port = Integer.parseInt(backup[1]);
+                    restore_port = Integer.parseInt(restore[1]);
                     try{ //
                         //create dir data if it doesnt exist
                         new File(path + id).mkdirs();
@@ -108,12 +98,7 @@ public class Peer {
                         peerFilesNoChunks[i] =  getFileNoChunks(peerFiles[i]);
                         System.out.println( "file:  " + peerFiles[i].getName() + " | | " +  peerFilesIds[i] + " | | " +  peerFilesNoChunks[i] );
                     }
-
-
-                    control_port = Integer.parseInt(control[1]);
-                    backup_port = Integer.parseInt(backup[1]);
-                    restore_port = Integer.parseInt(restore[1]);
-
+                    
                     //mc,mdb,mdr
                     mc = new MC(control_addr, control_port, "control");
                     mdb = new MC(backup_addr, backup_port, "backup");
@@ -190,6 +175,20 @@ public class Peer {
                 ret = i;
         }
         return  ret;
+    }
+
+    public static boolean isMulticastAddress(String addr){
+        String patternHostName = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}";
+        Pattern pattern = Pattern.compile(patternHostName);
+        Matcher matcher = pattern.matcher(addr);
+        return matcher.matches();
+    }
+
+    public static boolean isPortNumber(String port){
+        String patternPortNumber = "^[0-9]{4}$";
+        Pattern pattern = Pattern.compile(patternPortNumber);
+        Matcher matcher = pattern.matcher(port);
+        return matcher.matches();
     }
 
 
