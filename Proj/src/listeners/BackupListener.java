@@ -17,12 +17,12 @@ import java.util.Random;
  */
 //receives putchunk
 //sends stored
-public class Putchunk extends Thread {
+public class BackupListener extends Thread {
     public MC mdb,control;
     DatagramPacket packet_putChunk = null;
     DatagramPacket packet_store = null;
 
-    public Putchunk(MC backup , MC ctrl ){
+    public BackupListener(MC backup , MC ctrl ){
         mdb = backup;
         control = ctrl;
     }

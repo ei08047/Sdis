@@ -1,12 +1,14 @@
 package peer;
 
 import fileManager.Database;
-import listeners.Getchunk;
-import listeners.Putchunk;
+import listeners.ControlListener;
+import listeners.BackupListener;
 import chanels.*;
 
 import java.io.*;
 import java.security.MessageDigest;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,8 +44,9 @@ public class Peer {
     public static int restore_port;
 
 
-    public static Putchunk backup_listener;
-    public static Getchunk restore_listener;
+
+    public static BackupListener backup_listener;
+    public static ControlListener controlListener;
 
 
 
@@ -98,20 +101,21 @@ public class Peer {
                         peerFilesNoChunks[i] =  getFileNoChunks(peerFiles[i]);
                         System.out.println( "file:  " + peerFiles[i].getName() + " | | " +  peerFilesIds[i] + " | | " +  peerFilesNoChunks[i] );
                     }
-                    
+
                     //mc,mdb,mdr
                     mc = new MC(control_addr, control_port, "control");
                     mdb = new MC(backup_addr, backup_port, "backup");
                     mdr = new MC(restore_addr, restore_port, "restore");
 
+
                     interfaceChannel = new InterfaceChannel(id);
                     interfaceChannel.start();
 
-                    backup_listener = new Putchunk(mdb , mc);
-                    restore_listener = new Getchunk( mdr , mc );
+                    backup_listener = new BackupListener(mdb , mc);
+                    controlListener = new ControlListener( mdr , mc );
 
                     backup_listener.start();
-                    restore_listener.start();
+                    controlListener.start();
 
                 } else {
                     System.out.println("error: <port_number>");

@@ -92,7 +92,6 @@ public class InterfaceChannel extends Thread {
                         //r.start();
                     }else      //delete
                     if(operation.equals("delete")){
-                        //// TODO: 01-04-2016 parse delete operation
                         Delete d = new Delete(Peer.mc, Peer.id, parse[1] );
                         d.start();
                     }

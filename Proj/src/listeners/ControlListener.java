@@ -16,7 +16,7 @@ import java.net.DatagramPacket;
  */
 
 
-public class Getchunk extends Thread {
+public class ControlListener extends Thread {
 
     //receive getchunk on mc
     //sends chunks on mdr
@@ -26,7 +26,7 @@ public class Getchunk extends Thread {
     DatagramPacket packet_getChunk = null;
     DatagramPacket packet_chunk = null;
 
-    public Getchunk(MC restore, MC ctrl){
+    public ControlListener(MC restore, MC ctrl){
         mdr = restore;
         control = ctrl;
     }
