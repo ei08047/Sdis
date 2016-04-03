@@ -96,13 +96,10 @@ public class Peer {
 
                     try {
                         db.load();
-                        System.out.println("TAM: "+Peer.db.db.size());
 
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
-
-
 
                     peerFiles = retrieveFiles();
 
@@ -111,7 +108,6 @@ public class Peer {
                         peerFilesNoChunks[i] =  getFileNoChunks(peerFiles[i]);
                         System.out.println( "file:  " + peerFiles[i].getName() + " | | " +  peerFilesIds[i] + " | | " +  peerFilesNoChunks[i] );
                     }
-
 
 
                     control_port = Integer.parseInt(control[1]);
@@ -153,6 +149,8 @@ public class Peer {
         }
         return filesWithoutDirs;
     }
+
+
 
     // given the filename.extension returns the fileId String
     public static String getFileId(String file){

@@ -11,16 +11,14 @@ import java.util.regex.Pattern;
  * Created by ei08047 on 15-03-2016.
  */
 public class InterfaceApp {
-    int peer;
-    String sub_protocol;
-    String opnd_1;
-    String opnd_2;
+
     protected static byte[] message;
     protected static String construct;
     protected static String operation;
     static InterfaceChannel interfaceChannel;
 
     static DatagramSocket socket = null;
+    static DatagramPacket packet;
     static int port;
 
     public static void main(String[] args) throws IOException {
@@ -28,58 +26,38 @@ public class InterfaceApp {
             System.out.println("java Interface <peer_ap> <sub_protocol> <opnd_1> <opnd_2> ");
             return;
         }else{
-            String patternPortNumber = "^[0-9]{4}$";
-            String patternOperation = "^backup$|^restore$|^delete$";
-
-            Pattern pattern = Pattern.compile(patternPortNumber);
-            Matcher matcher = pattern.matcher(args[0]);
-            socket = new DatagramSocket(port);
-            if(matcher.matches()){
-
+            InetAddress address = InetAddress.getLocalHost();
+            if(isPort(args[0])){
                 port = Integer.parseInt(args[0]);
-                pattern = Pattern.compile(patternOperation);
-                matcher = pattern.matcher(args[1]);
-
-                if(matcher.matches()){ ///operation
+                socket = new DatagramSocket();
+                System.out.println("port/InitiationPeer: " + port );
+                if(isOperation(args[1])){ ///operation
                     operation = args[1];
-                    System.out.println("port/InitiationPeer: " + port );
+                    System.out.println("Operation: " + operation );
                     if(operation.equals("backup")){
-                        byte[] buf ;
                         construct = operation + " " + args[2] + " " + args[3];
-                        buf = construct.getBytes();
-                        InetAddress address = InetAddress.getLocalHost();
-
+                        message = construct.getBytes();
                         // get a datagram socket
-                        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
+                        packet = new DatagramPacket(message, message.length, address, port);
                         // send request
                         socket.send(packet);
                     }
                     else if(operation.equals("restore")){
-
-                        byte[] buf ;
                         construct = operation + " " + args[2];
-                        buf = construct.getBytes();
-                        InetAddress address = InetAddress.getLocalHost();
-
+                        message = construct.getBytes();
                         // get a datagram socket
-                        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
+                        packet = new DatagramPacket(message, message.length, address, port);
                         // send request
                         socket.send(packet);
-                        //// TODO: 29/03/2016 to be completed 
                     } else if(operation.equals("delete")){
-                        byte[] buf ;
                         construct = operation + " " + args[2];
-                        buf = construct.getBytes();
-                        InetAddress address = InetAddress.getLocalHost();
-
+                        message = construct.getBytes();
                         // get a datagram socket
-                        DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
+                        packet = new DatagramPacket(message, message.length, address, port);
                         // send request
                         socket.send(packet);
-
-
                     } else if(operation.equals("reclaim")){
-
+                        //// TODO: 03/04/2016 reclaim 
                     }
 
                     //socket.close();
@@ -92,4 +70,21 @@ public class InterfaceApp {
             }
         }
 
+
+    public static boolean isOperation(String oper){
+        String patternOperation = "^backup$|^restore$|^delete$";
+        Pattern pattern = Pattern.compile(patternOperation);
+        Matcher matcher = pattern.matcher(oper);
+        return matcher.matches();
+
+    }
+
+    public boolean isFile(String file){return true;}
+
+    public static boolean isPort(String port){
+        String patternPortNumber = "^[0-9]{4}$";   // 1024 to 49151
+        Pattern pattern = Pattern.compile(patternPortNumber);
+        Matcher matcher = pattern.matcher(port);
+        return matcher.matches();
+    }
 }

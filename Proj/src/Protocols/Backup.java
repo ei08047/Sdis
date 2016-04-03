@@ -52,8 +52,8 @@ public class Backup extends Thread{
         wattingTime = 1000;
         while( numTries < 5 && currentReplication < repDegree ){ //peers.length < repDegree &&
             //putchunks on mdb  PUTCHUNK <Version> <SenderId> <FileId> <ChunkNo> <ReplicationDeg> <CRLF><CRLF><Body>
-            PutChunkMsg p = new PutChunkMsg(Peer.version, Peer.id, fileId, chunkNo,body , 1);
-            byte[] buf = new byte[64000] ;
+            PutChunkMsg p = new PutChunkMsg(Peer.version, Peer.id, fileId, chunkNo,body , repDegree);
+            byte[] buf = new byte[Peer.datagramWithBodySize] ;
             buf = p.getBytes();
             send_put_chunk = new DatagramPacket(buf , buf.length ,mdb.getMc_addr() , mdb.getMc_port() );
 

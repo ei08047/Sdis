@@ -64,13 +64,6 @@ Enhancement: If a peer that backs up some chunks of the file is not running at t
    that would allow to reclaim storage space even in that event?
         *
         * */
-        try {
-            control.getMc_socket().send(send_delete);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
     }
 
 }

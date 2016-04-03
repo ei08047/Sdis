@@ -5,7 +5,9 @@ import messages.ParseHeader;
 import messages.StoredMsg;
 import peer.Peer;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.util.Random;
@@ -77,6 +79,8 @@ public class Putchunk extends Thread {
                             String path = "./data/" + Peer.id + "/" + parsed[3];
                             File f = new File(path);
                             File c = new File (path + "/" + parsed[4]);
+                            FileWriter fstream = new FileWriter(c.getCanonicalPath());
+                            BufferedWriter out = new BufferedWriter(fstream);
                             if (f.exists() && f.isDirectory()) {
                                 if(c.exists()){
                                     System.out.println(parsed[4] + " already exists!!");
@@ -85,6 +89,8 @@ public class Putchunk extends Thread {
                                 }else{
                                     c.getParentFile().mkdirs();
                                     c.createNewFile();
+                                    out.write("something");
+
                                     //save to disk
                                     System.out.println("save to disk");
                                     control.getMc_socket().send(packet_store);
@@ -94,6 +100,7 @@ public class Putchunk extends Thread {
                             {
                                 c.getParentFile().mkdirs();
                                 c.createNewFile();
+                                out.write("something");
                                 control.getMc_socket().send(packet_store);
                                 System.out.println("just made folder named fileid");
                             }
