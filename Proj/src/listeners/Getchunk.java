@@ -1,6 +1,8 @@
 package listeners;
 
+import Protocols.WaitChunk;
 import chanels.MC;
+import com.sun.xml.internal.ws.client.SenderException;
 import fileManager.FileManager;
 import fileManager.Record;
 import messages.ChunkMsg;
@@ -53,9 +55,22 @@ public class Getchunk extends Thread {
                         byte[] ze = new byte[64000];
 
                         ChunkMsg c = new ChunkMsg(Peer.version, Peer.id, parsed[3], Integer.parseInt(parsed[4]), ze);
+                        boolean state = false;
                         byte[] buf2 = new byte[Peer.datagramWithBodySize];
                         buf2 = c.getBytes();
                         packet_chunk = new DatagramPacket(buf2, buf2.length, mdr.getMc_addr(), mdr.getMc_port());
+                        //// TODO: 03/04/2016 calc rand int
+                        int waitTime=0;
+                        WaitChunk wait = new WaitChunk(waitTime, packet_chunk);
+                        try {
+                            wait.call();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            System.out.println("aqui");
+                        }
+
+
+                        //send chunk
                         //// TODO: 29/03/2016  wait and listen before send chunk
                         //To avoid flooding the host with CHUNK messages,
                         // each peer shall wait for a random time uniformly distributed between 0 and 400 ms, before sending the CHUNK message.
