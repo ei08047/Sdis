@@ -35,7 +35,8 @@ public class SendStored implements Runnable {
         packet_store = new DatagramPacket(buf2, buf2.length, control.getMc_addr(), control.getMc_port());
 
         String path = "./data/" + Peer.id + "/" + fileId;
-
+        File dir = new File(path);
+        dir.mkdirs();
         File c = new File (path + "/" + chunkNo);
 
             if(c.exists()){
@@ -54,11 +55,6 @@ public class SendStored implements Runnable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
-
             }
-
-
     }
 }
