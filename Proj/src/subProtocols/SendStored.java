@@ -39,8 +39,7 @@ public class SendStored implements Runnable {
         File c = new File (path + "/" + chunkNo);
 
             if(c.exists()){
-                //create datagram
-                try {
+                try {  //create datagram
                     control.getMc_socket().send(packet_store);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -48,7 +47,7 @@ public class SendStored implements Runnable {
             }else{
                 try {
                     c.createNewFile();
-                    FileOutputStream stream = new FileOutputStream(path);
+                    FileOutputStream stream = new FileOutputStream(c.getAbsolutePath());
                     stream.write(chunk);
                     stream.close();
                     control.getMc_socket().send(packet_store);

@@ -69,7 +69,6 @@ public class Backup extends Thread{
                     } catch (TimeoutException e){
                     storeFuture.cancel(true);
                     wattingTime = wattingTime * 2;
-                    System.out.println("Terminated!");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {

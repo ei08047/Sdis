@@ -69,10 +69,6 @@ public class Record implements Serializable{
                     records = Peer.db.db.size()-1;
                 }
 
-                //int records = folder.listFiles().length;
-                //if(records>0){records=Peer.db.db.size();}
-
-                 System.out.printf("entering record num: "+records);
                 FileOutputStream fileOut = new FileOutputStream(path  + "rec" + records + ".ser");
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
                 ///avoid rewrite

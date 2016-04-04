@@ -52,9 +52,9 @@ public void receive(){
             mdb.getMc_socket().receive(packet_putChunk);
             if (packet_putChunk.getData() != null) {
                 String msg = new String(packet_putChunk.getData());
-                System.out.println("Backup channel received : " + msg);
                 ParseHeader p = new ParseHeader();
                 String[] parsed = p.parse(msg);
+                String[] body = msg.split("\n\r\n\r");
                 int sleepTime = rand.nextInt(400) + 1;
                 if(parsed[0].equals("PUTCHUNK")){ //type must be putchunk
                     // IMP: A peer must never store the chunks of its own files.
@@ -62,8 +62,7 @@ public void receive(){
                         fileId = parsed[3];
                         chunkNo = Integer.parseInt(parsed[4]);
                         //run send stored thread
-                        sendStored.schedule( new SendStored(Peer.mc,fileId,chunkNo,"body".getBytes()),sleepTime, TimeUnit.MILLISECONDS);
-
+                        sendStored.schedule( new SendStored(Peer.mc,fileId,chunkNo,body[1].getBytes()),sleepTime, TimeUnit.MILLISECONDS);
                     }
                     else
                         continue;
