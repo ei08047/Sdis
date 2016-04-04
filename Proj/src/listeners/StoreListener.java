@@ -30,38 +30,36 @@ public Void call() throws InterruptedException, IOException {
     return null;
 }
 
-    //receives store
-    public void receive() {
-        //STORED <Version> <SenderId> <FileId> <ChunkNo> <CRLF><CRLF>
-        buf = new byte[Peer.datagramWithoutBodySize];
-        rec_stored = new DatagramPacket(buf, buf.length);
-        ParseHeader p = new ParseHeader();
+//receives store
+public void receive() {
+    //STORED <Version> <SenderId> <FileId> <ChunkNo> <CRLF><CRLF>
+    buf = new byte[Peer.datagramWithoutBodySize];
+    rec_stored = new DatagramPacket(buf, buf.length);
+    ParseHeader p = new ParseHeader();
 
-        while (!Thread.interrupted()) {
-            try {
-                control.getMc_socket().receive(rec_stored);
-                if (rec_stored.getData() != null) {
-                    String msg = new String(rec_stored.getData());
-                    //System.out.println("control received:  " + msg);
-                    String[] parsed = p.parse(msg);
-                    if (parsed[0].equals("STORED")) {
-                        //type must be stored
-                        if (Integer.parseInt(parsed[4]) == chunk /*&& parsed[3].equals(fileId)*/) {
-                            // check if sender is already in sender array
-                    /*
-                    if( !Backup.checkSender(parsed[2])){
-                        Backup.addSender( parsed[2]);
-                        Backup.incrementReplication();
-                    }
-                    */
+    while (!Thread.interrupted()) {
+        try {
+            control.getMc_socket().receive(rec_stored);
+            if (rec_stored.getData() != null) {
+                String msg = new String(rec_stored.getData());
+                //System.out.println("control received:  " + msg);
+                String[] parsed = p.parse(msg);
+                if (parsed[0].equals("STORED")) {
+                    //type must be stored
+                    if (Integer.parseInt(parsed[4]) == chunk /*&& parsed[3].equals(fileId)*/) {
+                        // check if sender is already in sender array
+                        if( !Backup.checkSender(parsed[2])){
+                            Backup.addSender( parsed[2]);
+                            Backup.incrementReplication();
                         }
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-                e.getMessage();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            e.getMessage();
         }
     }
+}
 
 }

@@ -1,15 +1,12 @@
 package Protocols;
 
 import chanels.MC;
-import messages.ParseHeader;
 import messages.PutChunkMsg;
 import peer.Peer;
 import listeners.StoreListener;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
 import java.util.concurrent.*;
 
 /**
@@ -58,7 +55,7 @@ public class Backup extends Thread{
         while( numTries < 5 && currentReplication < repDegree ){
             //putchunks on mdb  PUTCHUNK <Version> <SenderId> <FileId> <ChunkNo> <ReplicationDeg> <CRLF><CRLF><Body>
             PutChunkMsg p = new PutChunkMsg(Peer.version, Peer.id, fileId, chunkNo,body , repDegree);
-            byte[] buf = new byte[Peer.datagramWithBodySize] ;
+            buf = new byte[Peer.datagramWithBodySize] ;
             buf = p.getBytes();
             send_put_chunk = new DatagramPacket(buf , buf.length ,mdb.getMc_addr() , mdb.getMc_port() );
             try {

@@ -1,4 +1,4 @@
-package Protocols;
+package subProtocols;
 
 import chanels.MC;
 import messages.ParseHeader;
@@ -23,7 +23,6 @@ public class WaitChunk implements Callable<Boolean> {
         restoreChannel = Peer.mdr;
         wait = waitingTime;
         this.waitingChunk = waitingChunk;
-
     }
 
 

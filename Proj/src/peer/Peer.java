@@ -111,7 +111,7 @@ public class Peer {
                     interfaceChannel = new InterfaceChannel(id);
                     interfaceChannel.start();
 
-                    backup_listener = new BackupListener(mdb , mc);
+                    backup_listener = new BackupListener(mdb);
                     controlListener = new ControlListener( mdr , mc );
 
                     backup_listener.start();

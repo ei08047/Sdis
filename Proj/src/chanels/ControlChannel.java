@@ -1,8 +1,7 @@
 package chanels;
 
 import Protocols.DeleteThread;
-import Protocols.WaitChunk;
-import fileManager.FileManager;
+import subProtocols.WaitChunk;
 import fileManager.Record;
 import messages.ChunkMsg;
 import peer.Peer;

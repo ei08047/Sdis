@@ -1,8 +1,7 @@
 package listeners;
 
-import Protocols.WaitChunk;
+import subProtocols.WaitChunk;
 import chanels.MC;
-import com.sun.xml.internal.ws.client.SenderException;
 import fileManager.FileManager;
 import fileManager.Record;
 import messages.ChunkMsg;
